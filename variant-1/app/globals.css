@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --noir-black: #0A0A0A;
+  --noir-ivory: #F5EFE6;
+  --noir-gold: #C9A84C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--noir-black);
+  color: var(--noir-ivory);
+  cursor: none;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--noir-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--noir-gold);
+}
+
+/* Selection */
+::selection {
+  background: var(--noir-gold);
+  color: var(--noir-black);
+}
+
+/* Hide default cursor globally when custom cursor is active */
+a, button, [role="button"] {
+  cursor: none;
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C 0%, #E8D5A0 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .border-gold {
+    border-color: var(--noir-gold);
+  }
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+  }
+  .clip-revealed {
+    clip-path: inset(0 0% 0 0);
+  }
+}

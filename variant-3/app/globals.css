@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --archive-cream: #F8F4EF;
+  --archive-charcoal: #2C2820;
+  --archive-terracotta: #C1440E;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--archive-cream);
+  color: var(--archive-charcoal);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--archive-terracotta);
+  color: var(--archive-cream);
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--archive-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--archive-charcoal);
+}
+
+@layer utilities {
+  .text-editorial {
+    font-size: clamp(3rem, 10vw, 9rem);
+    line-height: 1.0;
+  }
+  .overflow-clip {
+    overflow: clip;
+  }
+  .word-mask {
+    overflow: hidden;
+    display: inline-block;
+  }
+}

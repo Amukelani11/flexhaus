@@ -1,0 +1,10 @@
+{
+  "name": "flexhaus",
+  "private": true,
+  "scripts": {
+    "dev:1": "pnpm --filter variant-1 dev",
+    "dev:2": "pnpm --filter variant-2 dev",
+    "dev:3": "pnpm --filter variant-3 dev",
+    "build:all": "pnpm -r build"
+  }
+}
