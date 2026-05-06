@@ -104,7 +104,7 @@ export default function ProductsPage() {
                 transition={{ duration: 0.5, delay: i * 0.04 }}
               >
                 <Link href={`/noir/products/${product.slug}`} className="group block" data-cursor-label="View">
-                  <div className="relative aspect-[3/4] overflow-hidden bg-[#111] mb-4">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-noir-warm-gray mb-4">
                     <Image
                       src={product.image}
                       alt={product.name}

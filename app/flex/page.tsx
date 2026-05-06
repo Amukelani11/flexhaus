@@ -105,7 +105,7 @@ export default function FlexHomePage() {
               </motion.h1>
             </div>
             <div className="overflow-hidden mb-10">
-              <motion.h1 initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.75, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} style={{ fontSize: "clamp(3.5rem,10vw,9rem)", lineHeight: 0.92, color: "#FFD600" }} className="font-display font-black uppercase">
+              <motion.h1 initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.75, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} style={{ fontSize: "clamp(3.5rem,10vw,9rem)", lineHeight: 0.92 }} className="font-display font-black uppercase text-flex-yellow">
                 FLEXED.
               </motion.h1>
             </div>

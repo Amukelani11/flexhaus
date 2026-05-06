@@ -47,7 +47,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
-              className="relative aspect-[4/5] overflow-hidden bg-[#111]"
+              className="relative aspect-[4/5] overflow-hidden bg-noir-warm-gray"
             >
               <Image
                 src={product.images[activeImage]}
@@ -208,7 +208,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                   transition={{ delay: i * 0.08 }}
                 >
                   <Link href={`/noir/products/${p.slug}`} className="group block">
-                    <div className="relative aspect-[3/4] overflow-hidden bg-[#111] mb-3">
+                    <div className="relative aspect-[3/4] overflow-hidden bg-noir-warm-gray mb-3">
                       <Image src={p.image} alt={p.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="25vw" />
                     </div>
                     <p className="text-[9px] tracking-[0.4em] uppercase text-noir-gold/70 font-sans mb-1">{p.brand}</p>

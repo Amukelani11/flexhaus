@@ -2,16 +2,140 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
 
-html {
-  scroll-behavior: smooth;
-}
+/* ================================================================
+   NOIR — DARK (default)
+   ================================================================ */
+.theme-noir.mode-dark {
+  --noir-black: #0A0A0A;
+  --noir-ivory: #F5EFE6;
+  --noir-gold: #C9A84C;
+  --noir-gold-light: #E8D5A0;
+  --noir-warm-gray: #2A2820;
+  --noir-muted: #8A8070;
+  --noir-nav-bg: 10, 10, 10;
 
-body {
-  overflow-x: hidden;
+  background-color: var(--noir-black);
+  color: var(--noir-ivory);
+  cursor: none;
+}
+.theme-noir.mode-dark a,
+.theme-noir.mode-dark button,
+.theme-noir.mode-dark [role="button"] { cursor: none; }
+.theme-noir.mode-dark ::selection { background: var(--noir-gold); color: var(--noir-black); }
+
+/* ================================================================
+   NOIR — LIGHT
+   ================================================================ */
+.theme-noir.mode-light {
+  --noir-black: #FDFAF6;
+  --noir-ivory: #1A1510;
+  --noir-gold: #B8943A;
+  --noir-gold-light: #C9A84C;
+  --noir-warm-gray: #F0EBE4;
+  --noir-muted: #8A8070;
+  --noir-nav-bg: 253, 250, 246;
+
+  background-color: var(--noir-black);
+  color: var(--noir-ivory);
+}
+.theme-noir.mode-light ::selection { background: var(--noir-gold); color: var(--noir-black); }
+
+/* ================================================================
+   FLEX — LIGHT (default)
+   ================================================================ */
+.theme-flex.mode-light {
+  --flex-white: #FFFFFF;
+  --flex-black: #1A1A1A;
+  --flex-yellow: #FFD600;
+  --flex-yellow-dark: #E6C200;
+  --flex-gray: #F0F0F0;
+  --flex-mid-gray: #888888;
+  --flex-red: #FF2D00;
+  --flex-nav-bg: 255, 255, 255;
+  --flex-black-rgb: 26, 26, 26;
+
+  background-color: var(--flex-white);
+  color: var(--flex-black);
+}
+.theme-flex.mode-light ::selection { background: var(--flex-yellow); color: var(--flex-black); }
+
+/* ================================================================
+   FLEX — DARK
+   ================================================================ */
+.theme-flex.mode-dark {
+  --flex-white: #0F0F0F;
+  --flex-black: #F0F0F0;
+  --flex-yellow: #FFD600;
+  --flex-yellow-dark: #E6C200;
+  --flex-gray: #1A1A1A;
+  --flex-mid-gray: #888888;
+  --flex-red: #FF2D00;
+  --flex-nav-bg: 15, 15, 15;
+  --flex-black-rgb: 240, 240, 240;
+
+  background-color: var(--flex-white);
+  color: var(--flex-black);
+}
+.theme-flex.mode-dark ::selection { background: var(--flex-yellow); color: var(--flex-white); }
+
+/* ================================================================
+   ARCHIVE — LIGHT (default)
+   ================================================================ */
+.theme-archive.mode-light {
+  --archive-cream: #F8F4EF;
+  --archive-charcoal: #2C2820;
+  --archive-terracotta: #C1440E;
+  --archive-terracotta-light: #E8614A;
+  --archive-stone: #8C7B6B;
+  --archive-warm-white: #FDFAF6;
+  --archive-line: #DDD5C8;
+  --archive-nav-bg: 248, 244, 239;
+
+  background-color: var(--archive-cream);
+  color: var(--archive-charcoal);
+}
+.theme-archive.mode-light ::selection { background: var(--archive-terracotta); color: var(--archive-cream); }
+
+/* ================================================================
+   ARCHIVE — DARK
+   ================================================================ */
+.theme-archive.mode-dark {
+  --archive-cream: #1C1A16;
+  --archive-charcoal: #F0EBE4;
+  --archive-terracotta: #E06030;
+  --archive-terracotta-light: #E8614A;
+  --archive-stone: #A09080;
+  --archive-warm-white: #232019;
+  --archive-line: #3A3530;
+  --archive-nav-bg: 28, 26, 22;
+
+  background-color: var(--archive-cream);
+  color: var(--archive-charcoal);
+}
+.theme-archive.mode-dark ::selection { background: var(--archive-terracotta); color: var(--archive-cream); }
+
+/* ================================================================
+   FLEX — override standard Tailwind grays for dark mode
+   ================================================================ */
+.theme-flex.mode-dark .bg-white { background-color: var(--flex-white) !important; }
+.theme-flex.mode-dark .bg-gray-50 { background-color: #1A1A1A !important; }
+.theme-flex.mode-dark .bg-gray-100 { background-color: #222222 !important; }
+.theme-flex.mode-dark .bg-gray-200 { background-color: #333333 !important; }
+
+/* ================================================================
+   SHARED UTILITIES
+   ================================================================ */
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C 0%, #E8D5A0 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 @keyframes marquee {
@@ -22,156 +146,4 @@ body {
 @keyframes marquee_archive {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
-}
-
-/* ===== NOIR DARK (default) ===== */
-.theme-noir.mode-dark {
-  background-color: #0A0A0A;
-  color: #F5EFE6;
-  cursor: none;
-}
-.theme-noir.mode-dark a,
-.theme-noir.mode-dark button,
-.theme-noir.mode-dark [role="button"] { cursor: none; }
-.theme-noir.mode-dark ::-webkit-scrollbar { width: 3px; }
-.theme-noir.mode-dark ::-webkit-scrollbar-track { background: #0A0A0A; }
-.theme-noir.mode-dark ::-webkit-scrollbar-thumb { background: #C9A84C; }
-.theme-noir.mode-dark ::selection { background: #C9A84C; color: #0A0A0A; }
-
-/* ===== NOIR LIGHT ===== */
-.theme-noir.mode-light {
-  background-color: #FDFAF6;
-  color: #1A1510;
-}
-.theme-noir.mode-light ::-webkit-scrollbar { width: 3px; }
-.theme-noir.mode-light ::-webkit-scrollbar-track { background: #FDFAF6; }
-.theme-noir.mode-light ::-webkit-scrollbar-thumb { background: #C9A84C; }
-.theme-noir.mode-light ::selection { background: #C9A84C; color: #FDFAF6; }
-
-.theme-noir.mode-light .noir-bg { background-color: #FDFAF6; }
-.theme-noir.mode-light .noir-text { color: #1A1510; }
-
-/* Invert noir color classes in light mode */
-.theme-noir.mode-light .bg-noir-black { background-color: #FDFAF6; }
-.theme-noir.mode-light .text-noir-ivory { color: #1A1510; }
-.theme-noir.mode-light .text-noir-ivory\/60 { color: rgba(26, 21, 16, 0.6); }
-.theme-noir.mode-light .text-noir-ivory\/50 { color: rgba(26, 21, 16, 0.5); }
-.theme-noir.mode-light .text-noir-ivory\/40 { color: rgba(26, 21, 16, 0.4); }
-.theme-noir.mode-light .text-noir-ivory\/30 { color: rgba(26, 21, 16, 0.3); }
-.theme-noir.mode-light .text-noir-ivory\/20 { color: rgba(26, 21, 16, 0.2); }
-.theme-noir.mode-light .border-noir-gold\/10 { border-color: rgba(201, 168, 76, 0.2); }
-.theme-noir.mode-light .border-noir-gold\/20 { border-color: rgba(201, 168, 76, 0.3); }
-.theme-noir.mode-light .bg-noir-warm-gray { background-color: #F0EBE4; }
-.theme-noir.mode-light .bg-\[\\#111\] { background-color: #F5F0EA; }
-.theme-noir.mode-light .from-noir-black { --tw-gradient-from: #FDFAF6; }
-.theme-noir.mode-light .via-noir-black\/20 { --tw-gradient-via: rgba(253, 250, 246, 0.2); }
-.theme-noir.mode-light .to-noir-black { --tw-gradient-to: #FDFAF6; }
-.theme-noir.mode-light .from-noir-black\/30 { --tw-gradient-from: rgba(253, 250, 246, 0.3); }
-.theme-noir.mode-light .via-noir-black\/50 { --tw-gradient-via: rgba(253, 250, 246, 0.5); }
-.theme-noir.mode-light .bg-noir-black\/70 { background-color: rgba(253, 250, 246, 0.7); }
-.theme-noir.mode-light .bg-noir-black\/95 { background-color: rgba(253, 250, 246, 0.95); }
-.theme-noir.mode-light .bg-noir-black\/50 { background-color: rgba(253, 250, 246, 0.5); }
-.theme-noir.mode-light .bg-noir-black\/30 { background-color: rgba(253, 250, 246, 0.3); }
-
-/* ===== FLEX LIGHT (default) ===== */
-.theme-flex.mode-light {
-  background-color: #FFFFFF;
-  color: #1A1A1A;
-}
-.theme-flex.mode-light ::-webkit-scrollbar { width: 4px; }
-.theme-flex.mode-light ::-webkit-scrollbar-track { background: #FFFFFF; }
-.theme-flex.mode-light ::-webkit-scrollbar-thumb { background: #1A1A1A; }
-.theme-flex.mode-light ::selection { background: #FFD600; color: #1A1A1A; }
-
-/* ===== FLEX DARK ===== */
-.theme-flex.mode-dark {
-  background-color: #0F0F0F;
-  color: #F0F0F0;
-}
-.theme-flex.mode-dark ::-webkit-scrollbar { width: 4px; }
-.theme-flex.mode-dark ::-webkit-scrollbar-track { background: #0F0F0F; }
-.theme-flex.mode-dark ::-webkit-scrollbar-thumb { background: #FFD600; }
-.theme-flex.mode-dark ::selection { background: #FFD600; color: #0F0F0F; }
-
-.theme-flex.mode-dark .bg-flex-white { background-color: #0F0F0F; }
-.theme-flex.mode-dark .text-flex-black { color: #F0F0F0; }
-.theme-flex.mode-dark .text-flex-black\/60 { color: rgba(240, 240, 240, 0.6); }
-.theme-flex.mode-dark .text-flex-black\/50 { color: rgba(240, 240, 240, 0.5); }
-.theme-flex.mode-dark .text-flex-black\/40 { color: rgba(240, 240, 240, 0.4); }
-.theme-flex.mode-dark .text-flex-black\/30 { color: rgba(240, 240, 240, 0.3); }
-.theme-flex.mode-dark .border-flex-black\/10 { border-color: rgba(240, 240, 240, 0.1); }
-.theme-flex.mode-dark .border-flex-black\/15 { border-color: rgba(240, 240, 240, 0.15); }
-.theme-flex.mode-dark .border-flex-black\/20 { border-color: rgba(240, 240, 240, 0.2); }
-.theme-flex.mode-dark .bg-gray-50 { background-color: #1A1A1A; }
-.theme-flex.mode-dark .bg-gray-100 { background-color: #222222; }
-.theme-flex.mode-dark .bg-white { background-color: #0F0F0F; }
-.theme-flex.mode-dark .hover\:bg-flex-yellow\/30:hover { background-color: rgba(255, 214, 0, 0.15); }
-
-/* ===== ARCHIVE LIGHT (default) ===== */
-.theme-archive.mode-light {
-  background-color: #F8F4EF;
-  color: #2C2820;
-}
-.theme-archive.mode-light ::-webkit-scrollbar { width: 3px; }
-.theme-archive.mode-light ::-webkit-scrollbar-track { background: #F8F4EF; }
-.theme-archive.mode-light ::-webkit-scrollbar-thumb { background: #2C2820; }
-.theme-archive.mode-light ::selection { background: #C1440E; color: #F8F4EF; }
-
-/* ===== ARCHIVE DARK ===== */
-.theme-archive.mode-dark {
-  background-color: #1C1A16;
-  color: #F8F4EF;
-}
-.theme-archive.mode-dark ::-webkit-scrollbar { width: 3px; }
-.theme-archive.mode-dark ::-webkit-scrollbar-track { background: #1C1A16; }
-.theme-archive.mode-dark ::-webkit-scrollbar-thumb { background: #C1440E; }
-.theme-archive.mode-dark ::selection { background: #C1440E; color: #1C1A16; }
-
-.theme-archive.mode-dark .bg-archive-cream { background-color: #1C1A16; }
-.theme-archive.mode-dark .text-archive-charcoal { color: #F8F4EF; }
-.theme-archive.mode-dark .text-archive-charcoal\/60 { color: rgba(248, 244, 239, 0.6); }
-.theme-archive.mode-dark .text-archive-charcoal\/50 { color: rgba(248, 244, 239, 0.5); }
-.theme-archive.mode-dark .text-archive-charcoal\/40 { color: rgba(248, 244, 239, 0.4); }
-.theme-archive.mode-dark .text-archive-charcoal\/30 { color: rgba(248, 244, 239, 0.3); }
-.theme-archive.mode-dark .border-archive-line { border-color: rgba(248, 244, 239, 0.1); }
-.theme-archive.mode-dark .bg-archive-charcoal { background-color: #2C2820; }
-.theme-archive.mode-dark .bg-archive-warm-white { background-color: #232019; }
-.theme-archive.mode-dark .border-r.border-archive-line { border-color: rgba(248, 244, 239, 0.1); }
-
-@layer utilities {
-  .text-gradient-gold {
-    background: linear-gradient(135deg, #C9A84C 0%, #E8D5A0 50%, #C9A84C 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .text-hero {
-    font-size: clamp(4rem, 15vw, 14rem);
-    line-height: 0.9;
-  }
-  .text-editorial {
-    font-size: clamp(3rem, 10vw, 9rem);
-    line-height: 1.0;
-  }
-  .glitch-effect {
-    position: relative;
-  }
-}
-
-@keyframes glitch-1 {
-  0%, 100% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
-  10% { clip: rect(15px, 9999px, 35px, 0); transform: translate(-3px, 2px); }
-  20% { clip: rect(55px, 9999px, 75px, 0); transform: translate(3px, -2px); }
-  30% { clip: rect(5px, 9999px, 25px, 0); transform: translate(-2px, 1px); }
-  40% { clip: rect(75px, 9999px, 95px, 0); transform: translate(2px, -3px); }
-  50% { clip: rect(40px, 9999px, 60px, 0); transform: translate(-3px, 2px); }
-  60% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
-}
-
-@keyframes glitch-2 {
-  0%, 100% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
-  15% { clip: rect(25px, 9999px, 45px, 0); transform: translate(4px, 0); }
-  35% { clip: rect(65px, 9999px, 85px, 0); transform: translate(-4px, 2px); }
-  55% { clip: rect(10px, 9999px, 30px, 0); transform: translate(2px, -2px); }
-  75% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
 }

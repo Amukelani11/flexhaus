@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
 import ThemeToggle from "@/components/archive/ThemeToggle";
@@ -11,12 +11,13 @@ export default function Navbar() {
   const { scrollY } = useScroll();
   const bgOpacity = useTransform(scrollY, [0, 60], [0, 1]);
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerBg = useMotionTemplate`rgba(var(--archive-nav-bg), ${bgOpacity})`;
 
   return (
     <>
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 border-b border-archive-line"
-        style={{ backgroundColor: `rgba(248,244,239,${bgOpacity})`, backdropFilter: "blur(8px)" }}
+        style={{ backgroundColor: headerBg, backdropFilter: "blur(8px)" }}
       >
         <div className="max-w-[1400px] mx-auto px-8 h-16 flex items-center justify-between">
           {/* Left links */}

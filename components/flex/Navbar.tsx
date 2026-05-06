@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
 import ThemeToggle from "@/components/flex/ThemeToggle";
@@ -10,14 +10,16 @@ export default function Navbar() {
   const { totalItems, dispatch } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
-  const bgColor = useTransform(scrollY, [0, 60], ["rgba(255,255,255,0)", "rgba(255,255,255,1)"]);
+  const bgOpacity = useTransform(scrollY, [0, 60], [0, 1]);
   const borderOpacity = useTransform(scrollY, [0, 60], [0, 1]);
+  const headerBg = useMotionTemplate`rgba(var(--flex-nav-bg), ${bgOpacity})`;
+  const headerBorder = useMotionTemplate`rgba(var(--flex-black-rgb), ${borderOpacity})`;
 
   return (
     <>
       <motion.header
         className="fixed top-0 left-0 right-0 z-50"
-        style={{ backgroundColor: bgColor, borderBottom: "1px solid", borderColor: `rgba(26,26,26,${borderOpacity})` }}
+        style={{ backgroundColor: headerBg, borderBottom: "1px solid", borderColor: headerBorder }}
       >
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
