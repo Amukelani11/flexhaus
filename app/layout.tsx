@@ -46,7 +46,7 @@ const dmMono = DM_Mono({
 
 export const metadata: Metadata = {
   title: "FLEXHAUS — Designer Reseller SA",
-  description: "South Africa's premier designer brand reseller. Six distinct storefront directions, one brand.",
+  description: "South Africa's premier designer brand reseller. Five storefront experiences plus the merged Flex edit (Street × Archive).",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -25,7 +25,7 @@ export default function LandingPage() {
           className="text-[11px] tracking-[0.45em] uppercase text-[#C9A84C]/90 mt-3 max-w-md mx-auto leading-relaxed"
           style={{ fontFamily: "system-ui, sans-serif" }}
         >
-          Designer resale — six storefronts, one house.
+          Designer resale — five storefronts, one house. /archive opens the Flex edit.
         </motion.p>
       </header>
 
@@ -57,53 +57,27 @@ export default function LandingPage() {
             </Link>
           </motion.div>
 
-          {/* FLEX */}
+          {/* FLEX + ARCHIVE merged */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
             <Link href="/flex" className="group block">
-              <div className="border border-[#CFA20C]/35 p-8 text-center hover:border-[#CFA20C] transition-all duration-500 min-h-[320px] flex flex-col items-center justify-center gap-6 backdrop-blur-[1px] bg-[#0A0A0A]/20 hover:bg-[#CFA20C]/5">
-                <p className="text-[9px] tracking-[0.5em] uppercase text-[#CFA20C] font-medium">Variant 02</p>
+              <div className="border border-[#CFA20C]/40 border-l-4 border-l-[#C1440E]/70 p-8 text-center hover:border-[#CFA20C] transition-all duration-500 min-h-[320px] flex flex-col items-center justify-center gap-5 backdrop-blur-[1px] bg-[#0A0A0A]/20 hover:bg-[#CFA20C]/8">
+                <p className="text-[9px] tracking-[0.5em] uppercase text-[#CFA20C] font-medium">Variant 02 · The edit</p>
                 <h2
                   className="text-4xl tracking-tight uppercase font-black text-[#CFA20C] group-hover:text-[#E8C547] transition-colors duration-300"
                   style={{ fontFamily: "var(--font-syne), system-ui, sans-serif" }}
                 >
                   FLEX
                 </h2>
-                <p className="text-[10px] tracking-[0.3em] uppercase text-[#F5EFE6]/40 max-w-[200px]">
-                  Streetwear / Hype Culture
+                <p className="text-[10px] tracking-[0.28em] uppercase text-[#F5EFE6]/40 max-w-[220px] leading-relaxed">
+                  Street energy × Archive curation (fan vote)
                 </p>
-                <div className="w-12 h-px bg-[#CFA20C]/35 group-hover:w-20 transition-all duration-500" />
-                <p className="text-[9px] tracking-[0.2em] text-[#F5EFE6]/30">
-                  Supreme · Off-White · Highsnobiety
-                </p>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* ARCHIVE */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.55 }}
-          >
-            <Link href="/archive" className="group block">
-              <div className="border border-[#C1440E]/30 p-8 text-center hover:border-[#C1440E] hover:bg-[#C1440E]/5 transition-all duration-500 min-h-[320px] flex flex-col items-center justify-center gap-6 backdrop-blur-[1px] bg-[#0A0A0A]/20">
-                <p className="text-[9px] tracking-[0.5em] uppercase text-[#C1440E]">Variant 03</p>
-                <h2
-                  className="text-4xl tracking-wide uppercase font-bold group-hover:text-[#C1440E] transition-colors duration-300"
-                  style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-                >
-                  ARCHIVE
-                </h2>
-                <p className="text-[10px] tracking-[0.3em] uppercase text-[#F5EFE6]/40 max-w-[200px]">
-                  Magazine / Curation
-                </p>
-                <div className="w-12 h-px bg-[#C1440E]/30 group-hover:w-20 transition-all duration-500" />
-                <p className="text-[9px] tracking-[0.2em] text-[#F5EFE6]/30">
-                  SSENSE · AnOther · Matches
+                <div className="w-12 h-px bg-[#CFA20C]/35 group-hover:w-[5.5rem] transition-all duration-500" />
+                <p className="text-[9px] tracking-[0.2em] text-[#F5EFE6]/32">
+                  Hype drops · magazine pacing · /archive redirects here
                 </p>
               </div>
             </Link>
@@ -113,11 +87,11 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.75 }}
+            transition={{ duration: 0.7, delay: 0.55 }}
           >
             <Link href="/prism" className="group block">
               <div className="border-2 border-[#00D9AA]/40 p-8 text-center hover:border-[#00D9AA] hover:bg-[#00D9AA]/8 transition-all duration-500 min-h-[280px] md:min-h-[320px] flex flex-col items-center justify-center gap-6 backdrop-blur-[1px] bg-[#0A0A0A]/25">
-                <p className="text-[9px] tracking-[0.5em] uppercase text-[#00D9AA] font-mono">Variant 04</p>
+                <p className="text-[9px] tracking-[0.5em] uppercase text-[#00D9AA] font-mono">Variant 03</p>
                 <h2
                   className="text-4xl tracking-tight uppercase font-black text-[#00D9AA] group-hover:text-[#5EFFC7] transition-colors duration-300"
                   style={{ fontFamily: "var(--font-space-mono), ui-monospace, monospace" }}
@@ -139,11 +113,11 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9 }}
+            transition={{ duration: 0.7, delay: 0.72 }}
           >
             <Link href="/velvet" className="group block">
               <div className="border border-[#C4A574]/45 p-8 text-center hover:border-[#D4B896] hover:bg-[#C4A574]/8 transition-all duration-500 min-h-[280px] md:min-h-[320px] flex flex-col items-center justify-center gap-6 backdrop-blur-[2px] bg-[#1a1510]/30 rounded-sm">
-                <p className="text-[9px] tracking-[0.5em] uppercase text-[#C4A574]">Variant 05</p>
+                <p className="text-[9px] tracking-[0.5em] uppercase text-[#C4A574]">Variant 04</p>
                 <h2
                   className="text-4xl tracking-[0.12em] uppercase font-semibold text-[#E8D5BC] group-hover:text-[#C4A574] transition-colors duration-300"
                   style={{ fontFamily: "var(--font-cormorant), Georgia, serif" }}
@@ -165,12 +139,12 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.05 }}
+            transition={{ duration: 0.7, delay: 0.88 }}
             className="sm:col-span-2 xl:col-span-1"
           >
             <Link href="/steel" className="group block h-full">
               <div className="border-l-4 border-[#EF4444] border-y border-r border-[#F5EFE6]/15 p-8 text-left hover:border-[#F5EFE6]/35 transition-all duration-500 min-h-[280px] md:min-h-[320px] flex flex-col justify-center gap-5 backdrop-blur-[1px] bg-[#0f1218]/40 h-full">
-                <p className="text-[9px] tracking-[0.45em] uppercase text-[#94A3B8] font-medium">Variant 06</p>
+                <p className="text-[9px] tracking-[0.45em] uppercase text-[#94A3B8] font-medium">Variant 05</p>
                 <h2
                   className="text-4xl tracking-[0.08em] uppercase font-bold text-[#F1F5F9] group-hover:text-[#EF4444] transition-colors duration-300"
                   style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}

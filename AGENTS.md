@@ -4,7 +4,7 @@
 
 ### Project overview
 
-FlexHaus is a frontend-only pnpm monorepo with six Next.js 14 (App Router) storefront variants of a luxury designer brand reseller e-commerce site (consolidated under one app). No backend, database, auth, or environment variables are required.
+FlexHaus is a frontend-only pnpm monorepo with five **distinct** storefront experiences under the consolidated app (plus legacy variant folders). `/archive` **redirects** to `/flex` — Flex is the merged **Street × Archive** experience (editorial + hype). No backend, database, auth, or environment variables are required.
 
 ### Services
 
@@ -13,13 +13,13 @@ FlexHaus is a frontend-only pnpm monorepo with six Next.js 14 (App Router) store
 | variant-1 | 3001 | NOIR (ultra-luxury editorial) |
 | variant-2 | 3002 | FLEX (streetwear/hype) |
 | variant-3 | 3003 | ARCHIVE (magazine/curation) |
-| (consolidated only) | 3000 | PRISM (neo-brutalist / mono) |
-| (consolidated only) | 3000 | VELVET (salon warmth / soft editorial) |
-| (consolidated only) | 3000 | STEEL (spec UI / cool neutrals) |
+| (consolidated only) | 3000 | FLEX — Street × Archive (merged fan vote; canonical shop) |
+| (consolidated only) | 3000 | PRISM / VELVET / STEEL |
+| redirect | — | `/archive` → `/flex` (and `/archive/*` → `/flex/*`) |
 
 ### Running
 
-- `pnpm dev` — start the consolidated app on port 3000 (all variants at `/noir`, `/flex`, `/archive`, `/prism`, `/velvet`, `/steel`)
+- `pnpm dev` — start the consolidated app on port 3000 (storefronts at `/noir`, `/flex`, `/prism`, `/velvet`, `/steel`; `/archive` redirects to `/flex`)
 - `pnpm dev:1` / `pnpm dev:2` / `pnpm dev:3` — start individual variant dev servers (legacy, ports 3001-3003)
 - `pnpm build` — production build the consolidated app
 - `pnpm build:all` — production build legacy individual variants
