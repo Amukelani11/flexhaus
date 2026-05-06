@@ -202,3 +202,35 @@ body { overflow-x: hidden; }
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+/* FLEX /flex storefront hero — mesh + soft gold wash */
+.theme-flex .flex-hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 125% 92% at 100% -18%, rgba(229, 184, 15, 0.22), transparent 58%),
+    radial-gradient(ellipse 88% 72% at -12% 92%, rgba(26, 26, 26, 0.042), transparent 54%),
+    radial-gradient(ellipse 58% 44% at 38% 108%, rgba(229, 184, 15, 0.1), transparent 48%),
+    linear-gradient(168deg, #ffffff 0%, #f4f2ec 32%, #faf8f5 58%, #fff8e8 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 135% 135%;
+  animation: flex-hero-mesh-shift 28s ease-in-out infinite alternate;
+}
+
+.theme-flex.mode-dark .flex-hero-mesh {
+  background:
+    radial-gradient(ellipse 118% 88% at 96% 2%, rgba(245, 213, 71, 0.18), transparent 56%),
+    radial-gradient(ellipse 80% 68% at -10% 96%, rgba(229, 184, 15, 0.08), transparent 52%),
+    radial-gradient(ellipse 52% 40% at 45% 106%, rgba(245, 213, 71, 0.07), transparent 46%),
+    linear-gradient(168deg, #0f0f0f 0%, #151311 38%, #0a0a0a 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 125% 125%;
+}
+
+@keyframes flex-hero-mesh-shift {
+  0% {
+    background-position: 0% 0%, 0% 0%, 0% 0%, 12% 28%;
+  }
+  100% {
+    background-position: 6% 10%, 10% 6%, -8% 5%, 88% 72%;
+  }
+}

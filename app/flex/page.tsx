@@ -87,16 +87,35 @@ export default function FlexHomePage() {
           )}
         </AnimatePresence>
 
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
           <Image
             src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1800&q=80"
             alt=""
             fill
             priority
-            className="object-cover opacity-[0.08]"
+            className="object-cover opacity-[0.06] scale-105 object-[center_35%]"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-flex-white via-flex-white to-flex-gray/50" />
+          <div className="flex-hero-mesh" />
+          <motion.div
+            className="absolute inset-0 z-[1]"
+            initial={false}
+            animate={{
+              opacity: [0.55, 0.85, 0.55],
+              scale: [1, 1.06, 1],
+            }}
+            transition={{
+              duration: 16,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{
+              background: "radial-gradient(ellipse 55% 42% at 72% 18%, rgba(229, 184, 15, 0.14), transparent 62%)",
+              transformOrigin: "70% 20%",
+            }}
+          />
+          <div className="absolute inset-0 z-[2] bg-gradient-to-b from-flex-white/65 via-flex-white/25 to-flex-white/90" />
+          <div className="absolute inset-0 z-[3] bg-gradient-to-r from-flex-white/80 via-transparent to-flex-yellow-bright/[0.06]" />
         </div>
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 py-20 sm:py-24">
