@@ -1,19 +1,33 @@
 "use client";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
-import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "@/components/flex/ThemeToggle";
 
 export default function Navbar() {
   const { totalItems, dispatch } = useCart();
+  const pathname = usePathname();
+  const isFlexHome = pathname === "/flex" || pathname === "/flex/";
   const [menuOpen, setMenuOpen] = useState(false);
+  const [nearTop, setNearTop] = useState(true);
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 60], [0, 1]);
-  const borderOpacity = useTransform(scrollY, [0, 60], [0, 1]);
+  const bgOpacity = useTransform(scrollY, [0, 56], [0, 1]);
+  const borderOpacity = useTransform(scrollY, [0, 56], [0, 1]);
   const headerBg = useMotionTemplate`rgba(var(--flex-nav-bg), ${bgOpacity})`;
   const headerBorder = useMotionTemplate`rgba(var(--flex-black-rgb), ${borderOpacity})`;
+
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setNearTop(y < 48);
+  });
+
+  useEffect(() => {
+    setNearTop(window.scrollY < 48);
+  }, [pathname]);
+
+  const overHero = isFlexHome && nearTop;
 
   return (
     <>
@@ -22,9 +36,10 @@ export default function Navbar() {
         style={{ backgroundColor: headerBg, borderBottom: "1px solid", borderColor: headerBorder }}
       >
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/flex" className="font-display font-black text-2xl tracking-[-0.03em] uppercase select-none">
-            FLEX<span className="text-flex-yellow bg-flex-black px-1.5 py-0.5 ml-0.5">HAUS</span>
+          {/* Logo — at page top the FLEX hero is always #0a0a0a; tokens invert in mode-dark so we cannot inherit body color */}
+          <Link href="/flex" className="font-display font-black text-2xl tracking-[-0.03em] uppercase select-none flex items-center">
+            <span className={overHero ? "text-white" : "text-flex-black"}>FLEX</span>
+            <span className="bg-[#E5B80F] text-[#0a0a0a] px-1.5 py-0.5 ml-0.5">HAUS</span>
           </Link>
 
           {/* Center nav */}
@@ -33,7 +48,11 @@ export default function Navbar() {
               <Link
                 key={item}
                 href={`/flex/${item.toLowerCase()}`}
-                className="px-5 py-2 text-[11px] tracking-[0.3em] uppercase font-mono font-bold text-flex-black/60 hover:text-flex-black hover:bg-flex-yellow-bright transition-all duration-200 rounded-sm"
+                className={
+                  overHero
+                    ? "px-5 py-2 text-[11px] tracking-[0.3em] uppercase font-mono font-bold text-white/65 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-sm"
+                    : "px-5 py-2 text-[11px] tracking-[0.3em] uppercase font-mono font-bold text-flex-black/60 hover:text-flex-black hover:bg-flex-yellow-bright transition-all duration-200 rounded-sm"
+                }
               >
                 {item}
               </Link>
@@ -42,10 +61,14 @@ export default function Navbar() {
 
           {/* Right — bag */}
           <div className="flex items-center gap-3">
-            <ThemeToggle />
+            <ThemeToggle overHero={overHero} />
             <button
               onClick={() => dispatch({ type: "OPEN" })}
-              className="relative flex items-center gap-2 bg-flex-black text-flex-white px-5 py-2.5 text-[11px] tracking-[0.25em] uppercase font-mono font-bold hover:bg-flex-yellow-bright hover:text-flex-black transition-colors duration-200"
+              className={
+                overHero
+                  ? "relative flex items-center gap-2 bg-[#E5B80F] text-[#0a0a0a] px-5 py-2.5 text-[11px] tracking-[0.25em] uppercase font-mono font-bold hover:bg-white transition-colors duration-200"
+                  : "relative flex items-center gap-2 bg-flex-black text-flex-white px-5 py-2.5 text-[11px] tracking-[0.25em] uppercase font-mono font-bold hover:bg-flex-yellow-bright hover:text-flex-black transition-colors duration-200"
+              }
             >
               <ShoppingBag size={13} strokeWidth={2} />
               Bag
@@ -53,15 +76,24 @@ export default function Navbar() {
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="bg-flex-yellow-bright text-flex-black w-5 h-5 rounded-full text-[9px] font-black flex items-center justify-center"
+                  className={
+                    overHero
+                      ? "bg-[#0a0a0a] text-[#E5B80F] w-5 h-5 rounded-full text-[9px] font-black flex items-center justify-center"
+                      : "bg-flex-yellow-bright text-flex-black w-5 h-5 rounded-full text-[9px] font-black flex items-center justify-center"
+                  }
                 >
                   {totalItems}
                 </motion.span>
               )}
             </button>
             <button
-              className="md:hidden border-2 border-flex-black p-2 hover:bg-flex-yellow-bright transition-colors"
+              className={
+                overHero
+                  ? "md:hidden border-2 border-white/40 text-white p-2 hover:bg-white/10 transition-colors"
+                  : "md:hidden border-2 border-flex-black p-2 hover:bg-flex-yellow-bright transition-colors"
+              }
               onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
               {menuOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
