@@ -128,12 +128,190 @@ body { overflow-x: hidden; }
 .theme-archive.mode-dark ::selection { background: var(--archive-terracotta); color: var(--archive-cream); }
 
 /* ================================================================
+   PRISM — brutalist / digital
+   ================================================================ */
+.theme-prism.mode-light {
+  --prism-bg: #eef0eb;
+  --prism-fg: #080808;
+  --prism-surface: #ffffff;
+  --prism-accent: #00d9aa;
+  --prism-hot: #ff006e;
+  --prism-muted: #5f5f5b;
+  --prism-line: #080808;
+  --prism-nav-bg: 238, 240, 235;
+  --prism-fg-rgb: 8, 8, 8;
+  background-color: var(--prism-bg);
+  color: var(--prism-fg);
+}
+.theme-prism.mode-light ::selection {
+  background: var(--prism-accent);
+  color: var(--prism-fg);
+}
+.theme-prism.mode-dark {
+  --prism-bg: #0a0a0c;
+  --prism-fg: #f2f2f0;
+  --prism-surface: #141418;
+  --prism-accent: #3dffce;
+  --prism-hot: #ff4da6;
+  --prism-muted: #9b9b95;
+  --prism-line: #2e2e32;
+  --prism-nav-bg: 10, 10, 12;
+  --prism-fg-rgb: 242, 242, 240;
+  background-color: var(--prism-bg);
+  color: var(--prism-fg);
+}
+.theme-prism.mode-dark ::selection {
+  background: var(--prism-hot);
+  color: var(--prism-bg);
+}
+
+/* ================================================================
+   VELVET — romantic / soft luxury
+   ================================================================ */
+.theme-velvet.mode-light {
+  --velvet-bg: #faf6f2;
+  --velvet-fg: #351428;
+  --velvet-surface: #fffefb;
+  --velvet-accent: #8b4d5c;
+  --velvet-gold: #b8956c;
+  --velvet-muted: #7a6560;
+  --velvet-line: #e8dfd6;
+  --velvet-nav-bg: 250, 246, 242;
+  --velvet-fg-rgb: 53, 20, 40;
+  background-color: var(--velvet-bg);
+  color: var(--velvet-fg);
+}
+.theme-velvet.mode-light ::selection {
+  background: var(--velvet-gold);
+  color: var(--velvet-fg);
+}
+.theme-velvet.mode-dark {
+  --velvet-bg: #1a0f14;
+  --velvet-fg: #f5ebe8;
+  --velvet-surface: #24141c;
+  --velvet-accent: #c98092;
+  --velvet-gold: #d4b896;
+  --velvet-muted: #b0a09a;
+  --velvet-line: #3d2a32;
+  --velvet-nav-bg: 26, 15, 20;
+  --velvet-fg-rgb: 245, 235, 232;
+  background-color: var(--velvet-bg);
+  color: var(--velvet-fg);
+}
+.theme-velvet.mode-dark ::selection {
+  background: var(--velvet-accent);
+  color: var(--velvet-bg);
+}
+
+/* ================================================================
+   STEEL — Swiss / industrial minimal
+   ================================================================ */
+.theme-steel.mode-light {
+  --steel-bg: #e9ebef;
+  --steel-fg: #161a21;
+  --steel-surface: #f7f8fa;
+  --steel-accent: #e42313;
+  --steel-muted: #5c6573;
+  --steel-line: #c2c8d4;
+  --steel-cool: #7a8ca3;
+  --steel-nav-bg: 233, 235, 239;
+  --steel-fg-rgb: 22, 26, 33;
+  background-color: var(--steel-bg);
+  color: var(--steel-fg);
+}
+.theme-steel.mode-light ::selection {
+  background: var(--steel-accent);
+  color: #ffffff;
+}
+.theme-steel.mode-dark {
+  --steel-bg: #12151a;
+  --steel-fg: #ebedf0;
+  --steel-surface: #1a1f27;
+  --steel-accent: #ff4b3d;
+  --steel-muted: #9aa3b2;
+  --steel-line: #2e3542;
+  --steel-cool: #8fa0b8;
+  --steel-nav-bg: 18, 21, 26;
+  --steel-fg-rgb: 235, 237, 240;
+  background-color: var(--steel-bg);
+  color: var(--steel-fg);
+}
+.theme-steel.mode-dark ::selection {
+  background: var(--steel-accent);
+  color: var(--steel-bg);
+}
+
+/* Hero meshes for new variants */
+.theme-prism .prism-hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      -8deg,
+      transparent,
+      transparent 38px,
+      color-mix(in srgb, var(--prism-fg) 6%, transparent) 38px,
+      color-mix(in srgb, var(--prism-fg) 6%, transparent) 39px
+    ),
+    radial-gradient(ellipse 90% 70% at 100% 0%, color-mix(in srgb, var(--prism-accent) 18%, transparent), transparent 55%),
+    linear-gradient(185deg, var(--prism-bg) 0%, color-mix(in srgb, var(--prism-surface) 70%, var(--prism-bg)) 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  animation: prism-hero-shift 30s ease-in-out infinite alternate;
+}
+@keyframes prism-hero-shift {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 12px 8px, 4% 6%, 0 0; }
+}
+
+.theme-velvet .velvet-hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% -20%, color-mix(in srgb, var(--velvet-gold) 22%, transparent), transparent 58%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, color-mix(in srgb, var(--velvet-accent) 14%, transparent), transparent 50%),
+    linear-gradient(165deg, var(--velvet-bg), var(--velvet-surface));
+  animation: velvet-hero-bloom 22s ease-in-out infinite alternate;
+}
+@keyframes velvet-hero-bloom {
+  0% { filter: saturate(1); }
+  100% { filter: saturate(1.12); }
+}
+
+.theme-steel .steel-hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(var(--steel-line) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--steel-line) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(175deg, var(--steel-bg) 0%, var(--steel-surface) 55%, var(--steel-bg) 100%);
+  opacity: 0.9;
+}
+
+/* ================================================================
    FLEX — override standard Tailwind grays for dark mode
    ================================================================ */
 .theme-flex.mode-dark .bg-white { background-color: var(--flex-white) !important; }
 .theme-flex.mode-dark .bg-gray-50 { background-color: #1A1A1A !important; }
 .theme-flex.mode-dark .bg-gray-100 { background-color: #222222 !important; }
 .theme-flex.mode-dark .bg-gray-200 { background-color: #333333 !important; }
+
+.theme-prism.mode-dark .bg-white { background-color: var(--prism-surface) !important; }
+.theme-prism.mode-dark .bg-gray-50 { background-color: #16161a !important; }
+.theme-prism.mode-dark .bg-gray-100 { background-color: #1c1c22 !important; }
+.theme-prism.mode-dark .bg-gray-200 { background-color: #2a2a32 !important; }
+
+.theme-velvet.mode-dark .bg-white { background-color: var(--velvet-surface) !important; }
+.theme-velvet.mode-dark .bg-gray-50 { background-color: #1f1218 !important; }
+.theme-velvet.mode-dark .bg-gray-100 { background-color: #261820 !important; }
+.theme-velvet.mode-dark .bg-gray-200 { background-color: #33242c !important; }
+
+.theme-steel.mode-dark .bg-white { background-color: var(--steel-surface) !important; }
+.theme-steel.mode-dark .bg-gray-50 { background-color: #171b22 !important; }
+.theme-steel.mode-dark .bg-gray-100 { background-color: #1e232c !important; }
+.theme-steel.mode-dark .bg-gray-200 { background-color: #2a313d !important; }
 
 /* ================================================================
    SHARED UTILITIES

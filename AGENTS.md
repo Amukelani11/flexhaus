@@ -4,7 +4,7 @@
 
 ### Project overview
 
-FlexHaus is a frontend-only pnpm monorepo with three Next.js 14 (App Router) variants of a luxury designer brand reseller e-commerce site. No backend, database, auth, or environment variables are required.
+FlexHaus is a frontend-only pnpm monorepo with six Next.js 14 (App Router) storefront variants of a luxury designer brand reseller e-commerce site (consolidated under one app). No backend, database, auth, or environment variables are required.
 
 ### Services
 
@@ -13,10 +13,13 @@ FlexHaus is a frontend-only pnpm monorepo with three Next.js 14 (App Router) var
 | variant-1 | 3001 | NOIR (ultra-luxury editorial) |
 | variant-2 | 3002 | FLEX (streetwear/hype) |
 | variant-3 | 3003 | ARCHIVE (magazine/curation) |
+| (consolidated only) | 3000 | PRISM (neo-brutalist / mono) |
+| (consolidated only) | 3000 | VELVET (salon warmth / soft editorial) |
+| (consolidated only) | 3000 | STEEL (spec UI / cool neutrals) |
 
 ### Running
 
-- `pnpm dev` — start the consolidated app on port 3000 (all variants at `/noir`, `/flex`, `/archive`)
+- `pnpm dev` — start the consolidated app on port 3000 (all variants at `/noir`, `/flex`, `/archive`, `/prism`, `/velvet`, `/steel`)
 - `pnpm dev:1` / `pnpm dev:2` / `pnpm dev:3` — start individual variant dev servers (legacy, ports 3001-3003)
 - `pnpm build` — production build the consolidated app
 - `pnpm build:all` — production build legacy individual variants
