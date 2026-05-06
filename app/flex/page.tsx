@@ -73,12 +73,12 @@ export default function FlexHomePage() {
 
   return (
     <>
-      {/* HERO — always dark surface (theme tokens invert in mode-dark; avoids white-on-white) */}
-      <section className="relative min-h-screen pt-16 bg-[#0a0a0a] text-white overflow-hidden flex items-center">
+      {/* HERO — light surface; headline uses fade-up (no overflow-hidden = no clipped glyphs) */}
+      <section className="relative min-h-screen pt-16 bg-flex-white text-flex-black flex items-center">
         <AnimatePresence>
           {scanActive && (
             <motion.div
-              className="absolute left-0 right-0 h-px bg-[#E5B80F] z-20 pointer-events-none"
+              className="absolute left-0 right-0 h-px bg-flex-yellow-bright z-20 pointer-events-none"
               initial={{ top: 0, opacity: 0.6 }}
               animate={{ top: "100vh" }}
               exit={{ opacity: 0 }}
@@ -87,52 +87,88 @@ export default function FlexHomePage() {
           )}
         </AnimatePresence>
 
-        <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1800&q=80" alt="Hero" fill priority className="object-cover opacity-15" sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/88 to-black/35" />
+        <div className="absolute inset-0 pointer-events-none" aria-hidden>
+          <Image
+            src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1800&q=80"
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-[0.08]"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-flex-white via-flex-white to-flex-gray/50" />
         </div>
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-8 w-full py-24">
-          <div className="max-w-3xl">
-            <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="flex items-center gap-3 mb-8">
-              <div className="w-6 h-px bg-[#E5B80F]" />
-              <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-white/70">South Africa · QC before dispatch</span>
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 py-20 sm:py-24">
+          <div className="w-full max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.55, delay: 0.15 }}
+              className="flex items-center gap-3 mb-6 sm:mb-8"
+            >
+              <div className="w-6 h-px shrink-0 bg-flex-yellow-bright" />
+              <span className="font-mono text-[9px] uppercase tracking-[0.35em] sm:tracking-[0.45em] text-flex-yellow">
+                South Africa · QC before dispatch
+              </span>
             </motion.div>
 
-            <div className="overflow-hidden mb-1">
-              <motion.h1 initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.75, delay: 0.35, ease: [0.16, 1, 0.3, 1] }} className="font-display font-black uppercase text-white" style={{ fontSize: "clamp(3.5rem,10vw,9rem)", lineHeight: 0.92 }}>
-                Luxury & street
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden mb-10">
-              <motion.h1 initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.75, delay: 0.5, ease: [0.16, 1, 0.3, 1] }} style={{ fontSize: "clamp(3.5rem,10vw,9rem)", lineHeight: 0.92 }} className="font-display font-black uppercase text-[#E5B80F]">
-                in rotation.
-              </motion.h1>
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-black uppercase text-flex-black text-[clamp(2rem,5.2vw+0.2rem,4.25rem)] leading-[1.05] max-w-full [text-wrap:balance]"
+            >
+              Luxury · street
+            </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-black uppercase text-flex-yellow text-[clamp(2rem,5.2vw+0.2rem,4.25rem)] leading-[1.05] mt-1 mb-8 sm:mb-10 max-w-full [text-wrap:balance]"
+            >
+              In rotation.
+            </motion.h1>
 
-            <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75 }} className="font-mono text-[11px] text-white/55 tracking-wide mb-8 max-w-md leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="font-mono text-[11px] text-flex-black/55 tracking-wide mb-8 max-w-md leading-relaxed"
+            >
               Louis Vuitton, Prada, Goyard, Nike — inspected arrivals, straight answers on pricing, courier nationwide.
             </motion.p>
 
             <div className="flex flex-wrap gap-3">
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}>
-                <Link href="/flex/products" className="inline-flex items-center gap-2.5 bg-[#E5B80F] text-[#0a0a0a] font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors duration-200">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62 }}>
+                <Link
+                  href="/flex/products"
+                  className="inline-flex items-center gap-2.5 bg-flex-yellow-bright text-[#0a0a0a] font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-flex-black hover:text-flex-white transition-colors duration-200"
+                >
                   Browse pieces <ArrowRight size={13} />
                 </Link>
               </motion.div>
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95 }}>
-                <Link href="/flex/about" className="inline-flex items-center gap-2.5 border border-white/35 text-white font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:border-white hover:bg-white/10 transition-all duration-200">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.72 }}>
+                <Link
+                  href="/flex/about"
+                  className="inline-flex items-center gap-2.5 border border-flex-black/20 text-flex-black font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:border-flex-black hover:bg-flex-gray/80 transition-all duration-200"
+                >
                   About
                 </Link>
               </motion.div>
             </div>
           </div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="absolute bottom-12 left-8 flex flex-wrap gap-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.95 }}
+            className="mt-16 sm:mt-20 sm:absolute sm:bottom-12 sm:left-8 sm:mt-0 flex flex-wrap gap-8 sm:gap-10"
+          >
             {[{ num: "16+", label: "SKUs" }, { num: "QC", label: "Every order" }, { num: "SA", label: "Shipping" }].map((s) => (
               <div key={s.label}>
-                <p className="font-display font-black text-xl text-[#E5B80F]">{s.num}</p>
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 mt-0.5">{s.label}</p>
+                <p className="font-display font-black text-xl text-flex-yellow">{s.num}</p>
+                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-black/40 mt-0.5">{s.label}</p>
               </div>
             ))}
           </motion.div>
@@ -248,8 +284,15 @@ export default function FlexHomePage() {
           <Image src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1800&q=80" alt="Nike Drop" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 px-10 w-full">
-            <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-display font-black text-white uppercase leading-none mb-6" style={{ fontSize: "clamp(2rem,7vw,6rem)", lineHeight: 0.92 }}>
-              Fresh stock.<br /><span className="text-[#E5B80F]">Same standard.</span>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-display font-black text-white uppercase leading-[1.05] mb-6 max-w-[95%] [text-wrap:balance] text-[clamp(1.65rem,4.5vw+0.2rem,3.25rem)]"
+            >
+              Fresh stock.
+              <br />
+              <span className="text-[#E5B80F]">Same standard.</span>
             </motion.h2>
             <Link href="/flex/products" className="inline-flex items-center gap-2.5 bg-[#E5B80F] text-[#0a0a0a] font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors">
               View products <ArrowRight size={13} />
@@ -259,37 +302,45 @@ export default function FlexHomePage() {
       </section>
 
       {/* SOCIAL */}
-      <section className="py-12 px-8 bg-[#0a0a0a]">
+      <section className="py-12 px-8 bg-flex-gray border-t border-flex-black/5">
         <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-4">
           {[
             { icon: "📱", platform: "TikTok", desc: "Drops and close-ups" },
             { icon: "📸", platform: "Instagram", desc: "Editorial and stock" },
             { icon: "💬", platform: "WhatsApp", desc: "Orders and sizing" },
           ].map((s) => (
-            <div key={s.platform} className="flex flex-col items-center py-8 px-4 text-center hover:bg-[#E5B80F] group rounded-sm transition-colors duration-200 cursor-pointer">
+            <div
+              key={s.platform}
+              className="flex flex-col items-center py-8 px-4 text-center hover:bg-flex-yellow-bright group rounded-sm transition-colors duration-200 cursor-pointer"
+            >
               <span className="text-2xl mb-3">{s.icon}</span>
-              <p className="font-display font-black uppercase text-base tracking-tight text-white group-hover:text-[#0a0a0a] transition-colors">{s.platform}</p>
-              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/45 group-hover:text-[#0a0a0a]/70 mt-1 transition-colors">{s.desc}</p>
+              <p className="font-display font-black uppercase text-base tracking-tight text-flex-black group-hover:text-[#0a0a0a] transition-colors">{s.platform}</p>
+              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-flex-black/45 group-hover:text-[#0a0a0a]/70 mt-1 transition-colors">{s.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[#0a0a0a] text-white py-10 px-8 border-t border-[#E5B80F]/35">
+      <footer className="bg-flex-black text-flex-white py-10 px-8 border-t border-flex-yellow-bright/25">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <p className="font-display font-black text-2xl uppercase tracking-tight text-white">
-              FLEX<span className="bg-[#E5B80F] text-[#0a0a0a] px-1.5 py-0.5 ml-0.5">HAUS</span>
+            <p className="font-display font-black text-2xl uppercase tracking-tight">
+              FLEX<span className="bg-flex-yellow-bright text-[#0a0a0a] px-1.5 py-0.5 ml-0.5">HAUS</span>
             </p>
-            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 mt-1">Designer resale · South Africa</p>
+            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-white/40 mt-1">Designer resale · South Africa</p>
           </div>
           <div className="flex gap-3">
             {["TikTok", "Instagram", "WhatsApp"].map((s) => (
-              <a key={s} href="#" className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/45 hover:text-[#E5B80F] transition-colors border border-white/15 hover:border-[#E5B80F] px-3 py-2">{s}</a>
+              <a
+                key={s}
+                href="#"
+                className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-white/45 hover:text-flex-yellow-bright transition-colors border border-flex-white/15 hover:border-flex-yellow-bright px-3 py-2"
+              >
+                {s}
+              </a>
             ))}
           </div>
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">© 2026 FlexHaus SA</p>
+          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-flex-white/25">© 2026 FlexHaus SA</p>
         </div>
       </footer>
     </>
