@@ -34,7 +34,7 @@ export default function ArchiveAboutPage() {
             <p className="font-mono text-[9px] uppercase tracking-[0.5em] text-archive-terracotta mb-4">Est. 2025</p>
           </FadeIn>
           <WordReveal
-            text="The FlexHaus Story"
+            text="About FlexHaus"
             className="font-serif font-bold text-archive-charcoal"
             style={{ fontSize: "clamp(3rem,9vw,8rem)", lineHeight: 1.0 } as React.CSSProperties}
           />
@@ -50,14 +50,11 @@ export default function ArchiveAboutPage() {
               Bringing luxury<br />within reach.
             </h2>
             <p className="font-sans text-sm leading-relaxed text-archive-charcoal/50 tracking-wide mb-5">
-              FlexHaus is a designer reseller founded by five equal partners with a combined startup capital 
-              of R5,000 and an unshakeable belief: South Africans deserve access to the world&apos;s finest 
-              labels without the gatekeeping.
+              A South African reseller built around editorial taste: Louis Vuitton, Prada, Goyard, Nike, and adjacent 
+              lines — presented clearly, checked on arrival, and shipped with care.
             </p>
             <p className="font-sans text-sm leading-relaxed text-archive-charcoal/50 tracking-wide">
-              We source from OopBuy (Nike, streetwear) and AcBuy (LV, Prada, Goyard — quality-inspected, 
-              photographed, shipped with care). Every piece that arrives in your hands passes through 
-              our meticulous quality review.
+              We keep the focus on product: accurate photos, honest condition notes, and packaging that respects what you ordered.
             </p>
           </FadeIn>
           <FadeIn delay={0.2} className="relative aspect-[4/5] overflow-hidden">
@@ -68,10 +65,10 @@ export default function ArchiveAboutPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-archive-line">
           {[
-            { num: "5", label: "Equal Partners" },
-            { num: "R5,000", label: "Startup Capital" },
-            { num: "16+", label: "Products" },
-            { num: "R100K+", label: "Year 1 Target" },
+            { num: "16+", label: "Archive Drops" },
+            { num: "100%", label: "Inspected" },
+            { num: "SA", label: "Delivery" },
+            { num: "1:1", label: "Photography" },
           ].map((s, i) => (
             <FadeIn key={i} delay={i * 0.1} className="bg-archive-cream py-12 px-8 text-center hover:bg-archive-charcoal group transition-colors duration-500">
               <p className="font-serif font-bold text-5xl text-archive-terracotta group-hover:text-archive-terracotta">{s.num}</p>
@@ -124,7 +121,7 @@ export default function ArchiveAboutPage() {
       <footer className="border-t border-archive-charcoal/20 py-12 px-10 lg:px-16 bg-archive-charcoal">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="font-serif text-xl text-archive-cream/60 tracking-[0.4em] uppercase">FlexHaus</p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-archive-cream/20">© 2025 FlexHaus SA</p>
+          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-archive-cream/20">© 2026 FlexHaus SA</p>
         </div>
       </footer>
     </div>

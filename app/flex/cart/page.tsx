@@ -32,7 +32,7 @@ export default function FlexCartPage() {
         {state.items.length === 0 ? (
           <div className="bg-gray-50 rounded-sm p-20 text-center">
             <p className="font-display font-black text-4xl uppercase mb-4">Bag Empty</p>
-            <Link href="/flex/products" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] bg-flex-yellow px-6 py-3 hover:bg-flex-black hover:text-flex-yellow transition-colors">
+            <Link href="/flex/products" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] bg-flex-yellow-bright px-6 py-3 hover:bg-flex-black hover:text-flex-yellow transition-colors">
               Browse the Drop
             </Link>
           </div>
@@ -58,9 +58,9 @@ export default function FlexCartPage() {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex border border-flex-black/20 rounded-sm">
-                        <button onClick={() => dispatch({ type: "DECREMENT", id: item.product.id, size: item.size })} className="px-3 py-2 hover:bg-flex-yellow transition-colors rounded-l-sm"><Minus size={12} /></button>
+                        <button onClick={() => dispatch({ type: "DECREMENT", id: item.product.id, size: item.size })} className="px-3 py-2 hover:bg-flex-yellow-bright transition-colors rounded-l-sm"><Minus size={12} /></button>
                         <span className="px-4 py-2 font-mono font-bold text-sm border-x border-flex-black/20">{item.quantity}</span>
-                        <button onClick={() => dispatch({ type: "INCREMENT", id: item.product.id, size: item.size })} className="px-3 py-2 hover:bg-flex-yellow transition-colors rounded-r-sm"><Plus size={12} /></button>
+                        <button onClick={() => dispatch({ type: "INCREMENT", id: item.product.id, size: item.size })} className="px-3 py-2 hover:bg-flex-yellow-bright transition-colors rounded-r-sm"><Plus size={12} /></button>
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="font-display font-black text-lg">{formatPrice(item.product.price * item.quantity)}</span>
@@ -90,7 +90,7 @@ export default function FlexCartPage() {
               </div>
               <div className="space-y-3 mt-6">
                 <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-flex-black/30">DM us on WhatsApp — we&apos;ll confirm &amp; sort delivery. No BS.</p>
-                <button className="w-full py-4 bg-flex-yellow text-flex-black font-display font-black text-[11px] uppercase tracking-[0.3em] rounded-sm hover:bg-flex-black hover:text-flex-yellow transition-colors">
+                <button className="w-full py-4 bg-flex-yellow-bright text-flex-black font-display font-black text-[11px] uppercase tracking-[0.3em] rounded-sm hover:bg-flex-black hover:text-flex-yellow transition-colors">
                   DM us on WhatsApp 💬
                 </button>
                 <button onClick={() => dispatch({ type: "CLEAR" })} className="w-full py-3 font-mono text-[9px] uppercase tracking-[0.3em] text-flex-black/30 hover:text-flex-black transition-colors">

@@ -50,8 +50,10 @@ body { overflow-x: hidden; }
 .theme-flex.mode-light {
   --flex-white: #FFFFFF;
   --flex-black: #1A1A1A;
-  --flex-yellow: #FFD600;
-  --flex-yellow-dark: #E6C200;
+  /* Darker gold for small type on white; use yellow-bright for fills (badges, CTAs, marquee) */
+  --flex-yellow: #A07800;
+  --flex-yellow-dark: #7A5A00;
+  --flex-yellow-bright: #E5B80F;
   --flex-gray: #F0F0F0;
   --flex-mid-gray: #888888;
   --flex-red: #FF2D00;
@@ -61,7 +63,10 @@ body { overflow-x: hidden; }
   background-color: var(--flex-white);
   color: var(--flex-black);
 }
-.theme-flex.mode-light ::selection { background: var(--flex-yellow); color: var(--flex-black); }
+.theme-flex.mode-light ::selection {
+  background: var(--flex-yellow-bright);
+  color: var(--flex-black);
+}
 
 /* ================================================================
    FLEX — DARK
@@ -69,8 +74,9 @@ body { overflow-x: hidden; }
 .theme-flex.mode-dark {
   --flex-white: #0F0F0F;
   --flex-black: #F0F0F0;
-  --flex-yellow: #FFD600;
-  --flex-yellow-dark: #E6C200;
+  --flex-yellow: #E8C547;
+  --flex-yellow-dark: #C9A227;
+  --flex-yellow-bright: #F5D547;
   --flex-gray: #1A1A1A;
   --flex-mid-gray: #888888;
   --flex-red: #FF2D00;
@@ -80,7 +86,10 @@ body { overflow-x: hidden; }
   background-color: var(--flex-white);
   color: var(--flex-black);
 }
-.theme-flex.mode-dark ::selection { background: var(--flex-yellow); color: var(--flex-white); }
+.theme-flex.mode-dark ::selection {
+  background: var(--flex-yellow-bright);
+  color: var(--flex-white);
+}
 
 /* ================================================================
    ARCHIVE — LIGHT (default)
@@ -141,6 +150,52 @@ body { overflow-x: hidden; }
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* Root landing (/): hero banner gradient + micro-motion */
+.landing-hero-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% -35%, rgba(201, 168, 76, 0.26), transparent 58%),
+    radial-gradient(ellipse 80% 70% at 100% 35%, rgba(193, 68, 14, 0.09), transparent 52%),
+    radial-gradient(ellipse 65% 80% at -5% 75%, rgba(184, 134, 11, 0.08), transparent 48%),
+    linear-gradient(155deg, #060606 0%, #0e0d0b 42%, #0a0a0a 72%, #15130f 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 300% 300%;
+  animation: landing-hero-shift 20s ease-in-out infinite alternate;
+}
+
+.landing-hero-glow {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  background: radial-gradient(ellipse 45% 35% at 50% 45%, rgba(201, 168, 76, 0.07), transparent 70%);
+  animation: landing-hero-pulse 8s ease-in-out infinite;
+}
+
+@keyframes landing-hero-shift {
+  0% {
+    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 40%;
+  }
+  100% {
+    background-position: 8% 12%, 6% 8%, -10% 6%, 100% 60%;
+  }
+}
+
+@keyframes landing-hero-pulse {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.06) translate(1%, -1%);
+    opacity: 0.65;
+  }
 }
 
 @keyframes marquee_archive {

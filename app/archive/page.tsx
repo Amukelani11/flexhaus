@@ -81,7 +81,7 @@ export default function ArchiveHomePage() {
               href="/archive/about"
               className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase font-sans text-archive-charcoal/50 hover:text-archive-terracotta transition-colors duration-300"
             >
-              Our Story <ArrowUpRight size={12} />
+              About <ArrowUpRight size={12} />
             </Link>
           </FadeIn>
         </div>
@@ -139,20 +139,19 @@ export default function ArchiveHomePage() {
           <div className="md:col-span-2">
             <FadeIn>
               <p className="font-mono text-[9px] uppercase tracking-[0.5em] text-archive-terracotta mb-6">
-                The FlexHaus Story
+                Editorial
               </p>
             </FadeIn>
             <WordReveal
-              text="Five partners. One obsession. The finest labels, brought home."
+              text="Luxury and street, edited for South Africa."
               className="font-serif font-bold text-archive-charcoal"
               style={{ fontSize: "clamp(1.8rem,4.5vw,4rem)", lineHeight: 1.15 } as React.CSSProperties}
             />
           </div>
           <FadeIn delay={0.3} className="pt-4 md:pt-16">
             <p className="font-sans text-sm leading-relaxed text-archive-charcoal/50 tracking-wide">
-              We source exclusively from the world&apos;s finest wholesale platforms — 
-              bringing Louis Vuitton, Prada, Goyard and Nike to the South African market 
-              with meticulous quality checks on every single piece.
+              Louis Vuitton, Prada, Goyard, Nike — authenticated where it counts, photographed honestly, 
+              and packed to survive a courier van.
             </p>
             <Link
               href="/archive/about"

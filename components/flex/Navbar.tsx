@@ -33,7 +33,7 @@ export default function Navbar() {
               <Link
                 key={item}
                 href={`/flex/${item.toLowerCase()}`}
-                className="px-5 py-2 text-[11px] tracking-[0.3em] uppercase font-mono font-bold text-flex-black/60 hover:text-flex-black hover:bg-flex-yellow transition-all duration-200 rounded-sm"
+                className="px-5 py-2 text-[11px] tracking-[0.3em] uppercase font-mono font-bold text-flex-black/60 hover:text-flex-black hover:bg-flex-yellow-bright transition-all duration-200 rounded-sm"
               >
                 {item}
               </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
             <ThemeToggle />
             <button
               onClick={() => dispatch({ type: "OPEN" })}
-              className="relative flex items-center gap-2 bg-flex-black text-flex-white px-5 py-2.5 text-[11px] tracking-[0.25em] uppercase font-mono font-bold hover:bg-flex-yellow hover:text-flex-black transition-colors duration-200"
+              className="relative flex items-center gap-2 bg-flex-black text-flex-white px-5 py-2.5 text-[11px] tracking-[0.25em] uppercase font-mono font-bold hover:bg-flex-yellow-bright hover:text-flex-black transition-colors duration-200"
             >
               <ShoppingBag size={13} strokeWidth={2} />
               Bag
@@ -53,14 +53,14 @@ export default function Navbar() {
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="bg-flex-yellow text-flex-black w-5 h-5 rounded-full text-[9px] font-black flex items-center justify-center"
+                  className="bg-flex-yellow-bright text-flex-black w-5 h-5 rounded-full text-[9px] font-black flex items-center justify-center"
                 >
                   {totalItems}
                 </motion.span>
               )}
             </button>
             <button
-              className="md:hidden border-2 border-flex-black p-2 hover:bg-flex-yellow transition-colors"
+              className="md:hidden border-2 border-flex-black p-2 hover:bg-flex-yellow-bright transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}
             >
               {menuOpen ? <X size={16} /> : <Menu size={16} />}
@@ -71,7 +71,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <motion.div
-        className="fixed inset-0 z-40 bg-flex-yellow flex flex-col items-start justify-center gap-5 px-8 md:hidden"
+        className="fixed inset-0 z-40 bg-flex-yellow-bright flex flex-col items-start justify-center gap-5 px-8 md:hidden"
         initial={{ x: "100%" }}
         animate={{ x: menuOpen ? "0%" : "100%" }}
         transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}

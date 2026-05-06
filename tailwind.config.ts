@@ -21,6 +21,7 @@ const config: Config = {
           black: "var(--flex-black)",
           yellow: "var(--flex-yellow)",
           "yellow-dark": "var(--flex-yellow-dark)",
+          "yellow-bright": "var(--flex-yellow-bright)",
           gray: "var(--flex-gray)",
           "mid-gray": "var(--flex-mid-gray)",
           red: "var(--flex-red)",
@@ -106,7 +107,7 @@ const config: Config = {
           "100%": { opacity: "1", transform: "translateY(0) rotate(0)" },
         },
         "border-flash": {
-          "0%, 100%": { borderColor: "#FFD600" },
+          "0%, 100%": { borderColor: "#E5B80F" },
           "50%": { borderColor: "#FF2D00" },
         },
         "word-reveal": {

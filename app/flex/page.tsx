@@ -8,7 +8,7 @@ import { useCart } from "@/context/CartContext";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 const badgeColors: Record<string, string> = {
-  "NEW DROP": "bg-flex-yellow text-flex-black",
+  "NEW DROP": "bg-flex-yellow-bright text-flex-black",
   "HOT": "bg-red-500 text-white",
   "LAST 1": "bg-flex-black text-flex-yellow",
   "SOLD OUT": "bg-gray-100 text-gray-400",
@@ -37,7 +37,7 @@ function ProductCard({ product, index }: { product: (typeof products)[0]; index:
             sizes="(max-width: 768px) 50vw, 25vw"
           />
           {product.badge && (
-            <div className={`absolute top-3 left-3 text-[9px] tracking-[0.25em] uppercase font-mono font-bold px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow text-flex-black"}`}>
+            <div className={`absolute top-3 left-3 text-[9px] tracking-[0.25em] uppercase font-mono font-bold px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
               {product.badge}
             </div>
           )}
@@ -45,7 +45,7 @@ function ProductCard({ product, index }: { product: (typeof products)[0]; index:
             <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
               <button
                 onClick={(e) => { e.preventDefault(); dispatch({ type: "ADD", product }); }}
-                className="w-full bg-flex-black text-flex-yellow font-mono font-bold text-[10px] uppercase tracking-[0.3em] py-3 hover:bg-flex-yellow hover:text-flex-black transition-colors"
+                className="w-full bg-flex-black text-flex-yellow font-mono font-bold text-[10px] uppercase tracking-[0.3em] py-3 hover:bg-flex-yellow-bright hover:text-flex-black transition-colors"
               >
                 Add to Bag
               </button>
@@ -78,7 +78,7 @@ export default function FlexHomePage() {
         <AnimatePresence>
           {scanActive && (
             <motion.div
-              className="absolute left-0 right-0 h-px bg-flex-yellow z-20 pointer-events-none"
+              className="absolute left-0 right-0 h-px bg-flex-yellow-bright z-20 pointer-events-none"
               initial={{ top: 0, opacity: 0.6 }}
               animate={{ top: "100vh" }}
               exit={{ opacity: 0 }}
@@ -95,7 +95,7 @@ export default function FlexHomePage() {
         <div className="relative z-10 max-w-[1400px] mx-auto px-8 w-full py-24">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="flex items-center gap-3 mb-8">
-              <div className="w-6 h-px bg-flex-yellow" />
+              <div className="w-6 h-px bg-flex-yellow-bright" />
               <span className="font-mono text-[9px] uppercase tracking-[0.45em] text-flex-yellow">SA&apos;s go-to spot for designer fits</span>
             </motion.div>
 
@@ -116,20 +116,20 @@ export default function FlexHomePage() {
 
             <div className="flex flex-wrap gap-3">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}>
-                <Link href="/flex/products" className="inline-flex items-center gap-2.5 bg-flex-yellow text-flex-black font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors duration-200">
+                <Link href="/flex/products" className="inline-flex items-center gap-2.5 bg-flex-yellow-bright text-flex-black font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors duration-200">
                   Shop the Drop <ArrowRight size={13} />
                 </Link>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95 }}>
                 <Link href="/flex/about" className="inline-flex items-center gap-2.5 border border-flex-white/30 text-flex-white font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:border-flex-white hover:bg-flex-white/10 transition-all duration-200">
-                  Our Story
+                  About
                 </Link>
               </motion.div>
             </div>
           </div>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="absolute bottom-12 left-8 flex flex-wrap gap-10">
-            {[{ num: "16+", label: "Products" }, { num: "5", label: "Partners" }, { num: "R100K+", label: "Year 1 Target" }].map((s) => (
+            {[{ num: "16+", label: "SKUs" }, { num: "QC", label: "Every order" }, { num: "SA", label: "Shipping" }].map((s) => (
               <div key={s.label}>
                 <p className="font-display font-black text-xl text-flex-yellow">{s.num}</p>
                 <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-white/30 mt-0.5">{s.label}</p>
@@ -140,7 +140,7 @@ export default function FlexHomePage() {
       </section>
 
       {/* BRANDS STRIP */}
-      <section className="py-5 bg-flex-yellow overflow-hidden border-y border-flex-black/10">
+      <section className="py-5 bg-flex-yellow-bright overflow-hidden border-y border-flex-black/10">
         <div className="flex gap-10 whitespace-nowrap" style={{ animation: "marquee 22s linear infinite", width: "max-content" }}>
           {[...brands, ...brands, ...brands].map((b, i) => (
             <span key={i} className="font-display font-black text-base uppercase tracking-tight text-flex-black/80">
@@ -157,7 +157,7 @@ export default function FlexHomePage() {
             <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-display font-black text-[clamp(1.8rem,5vw,3.5rem)] uppercase leading-none">
               New Drop
             </motion.h2>
-            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }} style={{ originX: 0 }} className="h-1 bg-flex-yellow w-14 mt-2" />
+            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }} style={{ originX: 0 }} className="h-1 bg-flex-yellow-bright w-14 mt-2" />
           </div>
           <Link href="/flex/products" className="hidden md:flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-flex-black/50 hover:text-flex-black transition-colors">
             All Products <ArrowUpRight size={11} />
@@ -170,7 +170,7 @@ export default function FlexHomePage() {
             <Link href={`/flex/products/${featuredProducts[0]?.slug}`} className="group block relative aspect-[16/10] overflow-hidden rounded-sm bg-gray-100">
               <Image src={featuredProducts[0]?.image ?? ""} alt={featuredProducts[0]?.name ?? ""} fill className="object-cover transition-transform duration-600 group-hover:scale-105" sizes="66vw" priority />
               {featuredProducts[0]?.badge && (
-                <div className={`absolute top-4 left-4 font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 rounded-sm ${badgeColors[featuredProducts[0].badge] ?? "bg-flex-yellow text-flex-black"}`}>
+                <div className={`absolute top-4 left-4 font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 rounded-sm ${badgeColors[featuredProducts[0].badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
                   {featuredProducts[0].badge}
                 </div>
               )}
@@ -188,7 +188,7 @@ export default function FlexHomePage() {
               <Link key={product.id} href={`/flex/products/${product.slug}`} className="group relative flex-1 min-h-[180px] overflow-hidden rounded-sm bg-gray-100 block">
                 <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="22vw" />
                 {product.badge && (
-                  <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow text-flex-black"}`}>
+                  <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
                     {product.badge}
                   </div>
                 )}
@@ -209,7 +209,7 @@ export default function FlexHomePage() {
             <Link key={product.id} href={`/flex/products/${product.slug}`} className="group relative aspect-[3/4] overflow-hidden rounded-sm bg-gray-100 block">
               <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="25vw" />
               {product.badge && (
-                <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow text-flex-black"}`}>
+                <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
                   {product.badge}
                 </div>
               )}
@@ -251,7 +251,7 @@ export default function FlexHomePage() {
             <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-display font-black text-flex-white uppercase leading-none mb-6" style={{ fontSize: "clamp(2rem,7vw,6rem)", lineHeight: 0.92 }}>
               New Season.<br /><span className="text-flex-yellow">New Flex.</span>
             </motion.h2>
-            <Link href="/flex/products" className="inline-flex items-center gap-2.5 bg-flex-yellow text-flex-black font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors">
+            <Link href="/flex/products" className="inline-flex items-center gap-2.5 bg-flex-yellow-bright text-flex-black font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors">
               Shop Now <ArrowRight size={13} />
             </Link>
           </div>
@@ -266,7 +266,7 @@ export default function FlexHomePage() {
             { icon: "📸", platform: "Instagram", desc: "Inspo & styling content" },
             { icon: "💬", platform: "WhatsApp", desc: "DM us to order, simple" },
           ].map((s) => (
-            <div key={s.platform} className="flex flex-col items-center py-8 px-4 text-center hover:bg-flex-yellow group rounded-sm transition-colors duration-200 cursor-pointer">
+            <div key={s.platform} className="flex flex-col items-center py-8 px-4 text-center hover:bg-flex-yellow-bright group rounded-sm transition-colors duration-200 cursor-pointer">
               <span className="text-2xl mb-3">{s.icon}</span>
               <p className="font-display font-black uppercase text-base tracking-tight text-flex-white group-hover:text-flex-black transition-colors">{s.platform}</p>
               <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-flex-white/40 group-hover:text-flex-black/60 mt-1 transition-colors">{s.desc}</p>
@@ -280,7 +280,7 @@ export default function FlexHomePage() {
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <p className="font-display font-black text-2xl uppercase tracking-tight">
-              FLEX<span className="bg-flex-yellow text-flex-black px-1.5 py-0.5 ml-0.5">HAUS</span>
+              FLEX<span className="bg-flex-yellow-bright text-flex-black px-1.5 py-0.5 ml-0.5">HAUS</span>
             </p>
             <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-white/30 mt-1">SA&apos;s Heat Plug</p>
           </div>

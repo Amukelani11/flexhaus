@@ -38,17 +38,16 @@ export default function FlexAboutPage() {
         {/* Story */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-flex-black/10 rounded-sm overflow-hidden">
           <div className="p-10 border-r border-flex-black/10">
-            <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-flex-black/50 mb-4">The Story</p>
+            <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-flex-black/50 mb-4">What We Do</p>
             <h2 className="font-display font-black text-[clamp(2rem,5vw,4rem)] uppercase leading-none mb-6">
-              5 Guys.<br />1 Flex.
+              Heat,<br />without the noise.
             </h2>
             <p className="font-mono text-[12px] leading-relaxed text-flex-black/60 mb-4">
-              FlexHaus is 5 guys from SA who got tired of watching designer pieces be out of reach. 
-              We pooled R5K, found the right connects, and started getting heat to people who actually want it — without the crazy markups.
+              South African resale with an eye on Louis Vuitton, Prada, Goyard, Nike, and the surrounding ecosystem. 
+              We buy carefully, check everything that comes through, and price fairly.
             </p>
             <p className="font-mono text-[12px] leading-relaxed text-flex-black/60">
-              LV, Prada, Goyard — sourced right, quality-checked. Nike and streetwear essentials with quick delivery. 
-              Every piece we cop, we&apos;d wear ourselves. That&apos;s the standard.
+              If we wouldn&apos;t wear it or stand next to it on a rail, it doesn&apos;t hit the site. Simple as that.
             </p>
           </div>
           <div className="relative aspect-square md:aspect-auto min-h-[300px]">
@@ -65,12 +64,12 @@ export default function FlexAboutPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
           {[
-            { num: "5", label: "Equal Partners" },
-            { num: "R5K", label: "Startup Capital" },
-            { num: "R100K+", label: "Year 1 Target" },
-            { num: "16+", label: "Products" },
+            { num: "16+", label: "Live SKUs" },
+            { num: "QC", label: "Every Order" },
+            { num: "SA", label: "Shipping" },
+            { num: "24h", label: "Typical reply" },
           ].map((stat) => (
-            <div key={stat.label} className="bg-gray-50 rounded-sm p-8 hover:bg-flex-yellow transition-colors duration-200">
+            <div key={stat.label} className="bg-gray-50 rounded-sm p-8 hover:bg-flex-yellow-bright transition-colors duration-200">
               <p className="font-display font-black text-[clamp(2.5rem,6vw,5rem)] leading-none">{stat.num}</p>
               <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-flex-black/50 mt-2">{stat.label}</p>
             </div>
@@ -95,7 +94,7 @@ export default function FlexAboutPage() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="p-6 bg-gray-50 rounded-sm hover:bg-flex-yellow transition-colors duration-200"
+                className="p-6 bg-gray-50 rounded-sm hover:bg-flex-yellow-bright transition-colors duration-200"
               >
                 <p className="font-display font-black text-xl uppercase">{brand.name}</p>
                 <p className="font-mono text-[10px] leading-relaxed text-flex-black/50 mt-2">{brand.desc}</p>
@@ -109,10 +108,12 @@ export default function FlexAboutPage() {
           <h2 className="font-display font-black text-[clamp(2rem,5vw,4rem)] uppercase leading-none text-flex-yellow mb-3">
             Ready to Get Flexed?
           </h2>
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-flex-white/40 mb-8">No gatekeeping. Just fire pieces.</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-flex-white/40 mb-8">
+            Current stock updates as pieces land.
+          </p>
           <Link
             href="/flex/products"
-            className="inline-flex items-center gap-3 bg-flex-yellow text-flex-black font-display font-black text-[12px] uppercase tracking-[0.3em] px-10 py-4 hover:bg-white transition-colors rounded-sm"
+            className="inline-flex items-center gap-3 bg-flex-yellow-bright text-flex-black font-display font-black text-[12px] uppercase tracking-[0.3em] px-10 py-4 hover:bg-white transition-colors rounded-sm"
           >
             Shop the Drop <ArrowRight size={16} />
           </Link>

@@ -28,7 +28,7 @@ export default function AboutPage() {
       <div className="relative h-[50vh] flex items-end pb-16 px-8 overflow-hidden">
         <Image
           src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1800&q=80"
-          alt="FlexHaus Story"
+          alt="About FlexHaus"
           fill
           className="object-cover opacity-20"
           sizes="100vw"
@@ -42,7 +42,7 @@ export default function AboutPage() {
               transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
               className="font-serif text-[clamp(3rem,10vw,9rem)] leading-none text-noir-ivory"
             >
-              Our Story
+              About
             </motion.h1>
           </div>
         </div>
@@ -54,17 +54,14 @@ export default function AboutPage() {
           <FadeUp>
             <p className="text-[10px] tracking-[0.5em] uppercase text-noir-gold font-sans mb-6">Who We Are</p>
             <h2 className="font-serif text-[clamp(2rem,5vw,4rem)] leading-tight text-noir-ivory mb-8">
-              Five Partners.<br />One Vision.
+              Designer labels,<br />treated with care.
             </h2>
             <p className="text-noir-ivory/60 font-sans text-sm leading-relaxed tracking-wide mb-6">
-              FlexHaus was born from a shared obsession with designer fashion and the belief that South Africans 
-              deserve access to the world&apos;s most coveted labels. Five equal partners, one startup capital of R5,000, 
-              and an unwavering drive to bring luxury closer to home.
+              FlexHaus is a curated reseller focused on authenticated luxury and streetwear — Louis Vuitton, Prada, 
+              Goyard, Nike, and adjacent brands — for clients who want the real thing without the usual friction.
             </p>
             <p className="text-noir-ivory/60 font-sans text-sm leading-relaxed tracking-wide">
-              We source exclusively from premium international wholesale platforms — OopBuy for streetwear and 
-              Nike, AcBuy for luxury labels including Louis Vuitton, Prada, and Goyard. Every piece is 
-              quality-checked before it reaches you.
+              Straightforward vetting and a standard we&apos;d stand behind in person.
             </p>
           </FadeUp>
           <FadeUp delay={0.2} className="relative aspect-square overflow-hidden">
@@ -144,7 +141,7 @@ export default function AboutPage() {
               <a key={s} href="#" className="text-[10px] tracking-[0.3em] uppercase text-noir-ivory/30 hover:text-noir-gold transition-colors font-sans">{s}</a>
             ))}
           </div>
-          <p className="text-[10px] tracking-[0.2em] text-noir-ivory/20 font-sans">© 2025 FlexHaus. South Africa.</p>
+          <p className="text-[10px] tracking-[0.2em] text-noir-ivory/20 font-sans">© 2026 FlexHaus. South Africa.</p>
         </div>
       </footer>
     </div>

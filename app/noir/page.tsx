@@ -73,7 +73,7 @@ export default function HomePage() {
             transition={{ duration: 1.2, delay: 0.3, ease: [0.76, 0, 0.24, 1] }}
             className="text-[10px] text-noir-gold uppercase font-sans mb-8 tracking-[0.5em]"
           >
-            South Africa&apos;s Finest
+            South Africa — curated resale
           </motion.p>
 
           {/* Main title */}
@@ -185,7 +185,7 @@ export default function HomePage() {
                 href="/noir/about"
                 className="inline-flex items-center gap-3 text-[11px] tracking-[0.4em] uppercase text-noir-gold font-sans hover:gap-6 transition-all duration-300"
               >
-                Our Story <ArrowRight size={14} />
+                About <ArrowRight size={14} />
               </Link>
             </motion.div>
           </div>

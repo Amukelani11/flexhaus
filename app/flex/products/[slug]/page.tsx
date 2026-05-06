@@ -60,7 +60,7 @@ export default function FlexProductPage({ params }: { params: { slug: string } }
                 priority
               />
               {product.badge && (
-                <div className="absolute top-4 left-4 bg-flex-yellow text-flex-black font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 rounded-sm">
+                <div className="absolute top-4 left-4 bg-flex-yellow-bright text-flex-black font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 rounded-sm">
                   {product.badge}
                 </div>
               )}
@@ -71,7 +71,7 @@ export default function FlexProductPage({ params }: { params: { slug: string } }
                   <button
                     key={i}
                     onClick={() => setActiveImage(i)}
-                    className={`relative w-20 aspect-square overflow-hidden rounded-sm bg-gray-100 transition-all ${activeImage === i ? "opacity-100 ring-2 ring-flex-yellow" : "opacity-50 hover:opacity-75"}`}
+                    className={`relative w-20 aspect-square overflow-hidden rounded-sm bg-gray-100 transition-all ${activeImage === i ? "opacity-100 ring-2 ring-flex-yellow-bright" : "opacity-50 hover:opacity-75"}`}
                   >
                     <Image src={img} alt="" fill className="object-cover" sizes="80px" />
                   </button>
@@ -109,7 +109,7 @@ export default function FlexProductPage({ params }: { params: { slug: string } }
                         key={size}
                         onClick={() => setSelectedSize(size)}
                         className={`px-4 py-2 font-mono font-bold text-[10px] uppercase tracking-widest rounded-sm transition-colors ${
-                          selectedSize === size ? "bg-flex-yellow text-flex-black" : "bg-gray-100 hover:bg-flex-yellow/60"
+                          selectedSize === size ? "bg-flex-yellow-bright text-flex-black" : "bg-gray-100 hover:bg-flex-yellow-bright/60"
                         }`}
                       >
                         {size}
@@ -131,7 +131,7 @@ export default function FlexProductPage({ params }: { params: { slug: string } }
                         key={color}
                         onClick={() => setSelectedColor(color)}
                         className={`px-4 py-2 font-mono text-[10px] uppercase tracking-widest rounded-sm transition-colors ${
-                          selectedColor === color ? "bg-flex-black text-flex-yellow" : "bg-gray-100 hover:bg-flex-yellow"
+                          selectedColor === color ? "bg-flex-black text-flex-yellow" : "bg-gray-100 hover:bg-flex-yellow-bright"
                         }`}
                       >
                         {color}
@@ -150,7 +150,7 @@ export default function FlexProductPage({ params }: { params: { slug: string } }
                     ? "bg-gray-100 text-flex-black/30 cursor-not-allowed"
                     : added
                     ? "bg-flex-black text-flex-yellow"
-                    : "bg-flex-yellow text-flex-black hover:bg-flex-black hover:text-flex-yellow"
+                    : "bg-flex-yellow-bright text-flex-black hover:bg-flex-black hover:text-flex-yellow"
                 }`}
               >
                 <ShoppingBag size={18} />

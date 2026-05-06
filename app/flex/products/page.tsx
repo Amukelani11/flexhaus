@@ -8,7 +8,7 @@ import { useCart } from "@/context/CartContext";
 import { Filter, Grid, LayoutList } from "lucide-react";
 
 const badgeColors: Record<string, string> = {
-  "NEW DROP": "bg-flex-yellow text-flex-black",
+  "NEW DROP": "bg-flex-yellow-bright text-flex-black",
   "HOT": "bg-red-500 text-white",
   "LAST 1": "bg-flex-black text-flex-yellow",
   "SOLD OUT": "bg-gray-200 text-gray-500",
@@ -64,7 +64,7 @@ export default function FlexProductsPage() {
               className={`font-mono text-[9px] uppercase tracking-[0.3em] px-3 py-2 rounded-sm transition-colors duration-200 ${
                 activeCategory === cat
                   ? "bg-flex-black text-flex-yellow"
-                  : "text-flex-black/50 hover:text-flex-black hover:bg-flex-yellow/30"
+                  : "text-flex-black/50 hover:text-flex-black hover:bg-flex-yellow-bright/30"
               }`}
             >
               {cat}
@@ -77,7 +77,7 @@ export default function FlexProductsPage() {
               onClick={() => setActiveBrand(activeBrand === b.name ? "All" : b.name)}
               className={`font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-2 rounded-sm transition-colors duration-200 ${
                 activeBrand === b.name
-                  ? "bg-flex-yellow text-flex-black font-bold"
+                  ? "bg-flex-yellow-bright text-flex-black font-bold"
                   : "text-flex-black/40 hover:text-flex-black"
               }`}
             >
@@ -128,13 +128,13 @@ export default function FlexProductsPage() {
                         sizes="(max-width: 768px) 50vw, 25vw"
                       />
                       {product.badge && (
-                        <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow text-flex-black"}`}>
+                        <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
                           {product.badge}
                         </div>
                       )}
                       {product.inStock && (
                         <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
-                          <button onClick={(e) => { e.preventDefault(); dispatch({ type: "ADD", product }); }} className="w-full bg-flex-black text-flex-yellow font-mono font-bold text-[9px] uppercase tracking-[0.3em] py-3 hover:bg-flex-yellow hover:text-flex-black transition-colors">
+                          <button onClick={(e) => { e.preventDefault(); dispatch({ type: "ADD", product }); }} className="w-full bg-flex-black text-flex-yellow font-mono font-bold text-[9px] uppercase tracking-[0.3em] py-3 hover:bg-flex-yellow-bright hover:text-flex-black transition-colors">
                             Add to Bag
                           </button>
                         </div>
@@ -149,7 +149,7 @@ export default function FlexProductsPage() {
                     </div>
                   </Link>
                 ) : (
-                  <Link href={`/flex/products/${product.slug}`} className="group flex items-center gap-5 py-4 hover:bg-flex-yellow/20 px-3 rounded-sm transition-colors duration-200">
+                  <Link href={`/flex/products/${product.slug}`} className="group flex items-center gap-5 py-4 hover:bg-flex-yellow-bright/20 px-3 rounded-sm transition-colors duration-200">
                     <div className="relative w-16 h-20 flex-shrink-0 overflow-hidden rounded-sm bg-gray-100">
                       <Image src={product.image} alt={product.name} fill className="object-cover" sizes="64px" />
                     </div>
@@ -158,7 +158,7 @@ export default function FlexProductsPage() {
                       <p className="font-display font-bold text-base uppercase">{product.name}</p>
                     </div>
                     {product.badge && (
-                      <div className={`font-mono font-bold text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow text-flex-black"}`}>
+                      <div className={`font-mono font-bold text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
                         {product.badge}
                       </div>
                     )}
