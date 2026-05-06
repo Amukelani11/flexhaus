@@ -4,6 +4,7 @@ import { useCart } from "@/context/CartContext";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState } from "react";
+import ThemeToggle from "@/components/flex/ThemeToggle";
 
 export default function Navbar() {
   const { totalItems, dispatch } = useCart();
@@ -39,6 +40,7 @@ export default function Navbar() {
 
           {/* Right — bag */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <button
               onClick={() => dispatch({ type: "OPEN" })}
               className="relative flex items-center gap-2 bg-flex-black text-flex-white px-5 py-2.5 text-[11px] tracking-[0.25em] uppercase font-mono font-bold hover:bg-flex-yellow hover:text-flex-black transition-colors duration-200"
