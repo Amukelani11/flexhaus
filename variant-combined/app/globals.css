@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* FLEX glitch & scan keyframes */
+@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+@keyframes glitch-overlay { 0%,100% { opacity:0 } 50% { opacity:1 } }
+@keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+
+/* ARCHIVE word-mask */
+.word-mask { overflow: hidden; display: inline-block; }
+
+/* NOIR clip */
+.clip-hidden { clip-path: inset(0 100% 0 0); }
+.clip-visible { clip-path: inset(0 0% 0 0); }
+
+/* Transition duration helpers */
+.duration-400 { transition-duration: 400ms; }
+.duration-600 { transition-duration: 600ms; }
