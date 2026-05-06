@@ -14,52 +14,87 @@ const badgeColors: Record<string, string> = {
   "SOLD OUT": "bg-gray-100 text-gray-400",
 };
 
-function ProductCard({ product, index }: { product: (typeof products)[0]; index: number }) {
+/** Mosaic cell — sharp grid, no bento */
+function MosaicCell({ product, index }: { product: (typeof products)[0]; index: number }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const inView = useInView(ref, { once: true, margin: "-30px" });
   const { dispatch } = useCart();
-
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      className="group"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : {}}
+      transition={{ duration: 0.35, delay: index * 0.04 }}
+      className="group bg-prism-bg border-2 border-prism-fg hover:bg-prism-surface transition-colors"
     >
       <Link href={`/prism/products/${product.slug}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 rounded-sm mb-3">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 50vw, 25vw"
-          />
+        <div className="relative aspect-square overflow-hidden bg-prism-fg/5">
+          <Image src={product.image} alt={product.name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" sizes="25vw" />
           {product.badge && (
-            <div className={`absolute top-3 left-3 text-[9px] tracking-[0.25em] uppercase font-mono font-bold px-2.5 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-prism-accent text-prism-fg"}`}>
+            <div className={`absolute top-2 left-2 text-[8px] tracking-[0.2em] uppercase font-mono font-bold px-2 py-1 border border-prism-fg ${badgeColors[product.badge] ?? ""}`}>
               {product.badge}
             </div>
           )}
-          {product.inStock && (
-            <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
-              <button
-                onClick={(e) => { e.preventDefault(); dispatch({ type: "ADD", product }); }}
-                className="w-full bg-prism-fg text-prism-hot font-mono font-bold text-[10px] uppercase tracking-[0.3em] py-3 hover:bg-prism-accent hover:text-prism-fg transition-colors"
-              >
-                Add to Bag
-              </button>
-            </div>
-          )}
         </div>
-        <div>
-          <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-prism-fg/40 mb-0.5">{product.brand}</p>
-          <div className="flex justify-between items-start gap-2">
-            <p className="font-space font-bold text-[13px] uppercase leading-tight group-hover:text-prism-fg/60 transition-colors">{product.name}</p>
-            <p className="font-space font-black text-[13px] flex-shrink-0">{formatPrice(product.price)}</p>
+        <div className="p-3 border-t-2 border-prism-fg flex justify-between gap-2 items-start">
+          <div>
+            <p className="font-mono text-[8px] uppercase tracking-[0.25em] text-prism-fg/50">{product.brand}</p>
+            <p className="font-space font-bold text-[11px] uppercase leading-tight mt-1">{product.name}</p>
           </div>
+          <p className="font-space font-black text-xs shrink-0">{formatPrice(product.price)}</p>
         </div>
       </Link>
+      {product.inStock && (
+        <button
+          type="button"
+          onClick={() => dispatch({ type: "ADD", product })}
+          className="w-full font-mono text-[9px] uppercase tracking-[0.35em] py-2.5 border-t-2 border-prism-fg bg-prism-fg text-prism-bg opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          Add
+        </button>
+      )}
+    </motion.div>
+  );
+}
+
+/** Ledger row — inventory table feel */
+function LedgerRow({ product, index }: { product: (typeof products)[0]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-20px" });
+  const { dispatch } = useCart();
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -12 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="grid grid-cols-[72px_1fr_auto] md:grid-cols-[88px_1fr_auto_auto] gap-3 md:gap-6 items-center px-3 py-3 border-b-2 border-prism-fg hover:bg-prism-accent/15 transition-colors"
+    >
+      <Link href={`/prism/products/${product.slug}`} className="relative h-[72px] md:h-[88px] border-2 border-prism-fg overflow-hidden bg-prism-fg/5 block shrink-0">
+        <Image src={product.image} alt="" fill className="object-cover" sizes="88px" />
+      </Link>
+      <Link href={`/prism/products/${product.slug}`} className="min-w-0 block">
+        <p className="font-mono text-[8px] uppercase tracking-[0.3em] text-prism-fg/45">{product.brand}</p>
+        <p className="font-space font-bold text-sm uppercase truncate">{product.name}</p>
+        <p className="font-mono text-[9px] text-prism-fg/40 mt-0.5 hidden md:block">{product.category}</p>
+      </Link>
+      <Link href={`/prism/products/${product.slug}`} className="text-right md:text-left block">
+        {product.badge && (
+          <span className={`inline-block font-mono text-[8px] uppercase tracking-[0.2em] px-1.5 py-0.5 border border-prism-fg mb-1 ${badgeColors[product.badge] ?? ""}`}>
+            {product.badge}
+          </span>
+        )}
+        <p className="font-space font-black text-sm">{formatPrice(product.price)}</p>
+      </Link>
+      {product.inStock && (
+        <button
+          type="button"
+          onClick={() => dispatch({ type: "ADD", product })}
+          className="hidden md:block font-mono text-[9px] uppercase tracking-[0.25em] border-2 border-prism-fg px-3 py-2 hover:bg-prism-fg hover:text-prism-bg transition-colors justify-self-end"
+        >
+          Bag
+        </button>
+      )}
     </motion.div>
   );
 }
@@ -67,299 +102,208 @@ function ProductCard({ product, index }: { product: (typeof products)[0]; index:
 export default function PrismHomePage() {
   const [scanActive, setScanActive] = useState(true);
   useEffect(() => {
-    const t = setTimeout(() => setScanActive(false), 3000);
+    const t = setTimeout(() => setScanActive(false), 2800);
     return () => clearTimeout(t);
   }, []);
 
   return (
     <>
-      {/* HERO — light surface; headline uses fade-up (no overflow-hidden = no clipped glyphs) */}
-      <section className="relative min-h-screen pt-16 bg-prism-bg text-prism-fg flex items-center border-y-4 border-prism-fg">
+      {/* HERO — brutalist split: type block | full bleed image */}
+      <section className="relative pt-16 lg:grid lg:grid-cols-2 lg:min-h-[calc(100vh-0px)] border-b-4 border-prism-fg">
         <AnimatePresence>
           {scanActive && (
             <motion.div
-              className="absolute left-0 right-0 h-px bg-prism-accent z-20 pointer-events-none"
-              initial={{ top: 0, opacity: 0.6 }}
+              className="absolute left-0 right-0 h-0.5 bg-prism-accent z-30 pointer-events-none lg:w-1/2"
+              initial={{ top: 64, opacity: 0.8 }}
               animate={{ top: "100vh" }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 2.5, ease: "linear" }}
+              transition={{ duration: 2.2, ease: "linear" }}
             />
           )}
         </AnimatePresence>
 
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-          <Image
-            src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1800&q=80"
-            alt=""
-            fill
-            priority
-            className="object-cover opacity-[0.06] scale-105 object-[center_35%]"
-            sizes="100vw"
-          />
-          <div className="prism-hero-mesh" />
-          <motion.div
-            className="absolute inset-0 z-[1]"
-            initial={false}
-            animate={{
-              opacity: [0.55, 0.85, 0.55],
-              scale: [1, 1.06, 1],
-            }}
-            transition={{
-              duration: 16,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            style={{
-              background: "radial-gradient(ellipse 55% 42% at 72% 18%, rgba(0, 217, 170, 0.16), transparent 62%)",
-              transformOrigin: "70% 20%",
-            }}
-          />
-          <div className="absolute inset-0 z-[2] bg-gradient-to-b from-prism-bg/65 via-prism-bg/25 to-prism-bg/90" />
-          <div className="absolute inset-0 z-[3] bg-gradient-to-r from-prism-bg/80 via-transparent to-prism-accent/[0.06]" />
-        </div>
-
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 py-20 sm:py-24">
-          <div className="w-full max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.55, delay: 0.15 }}
-              className="flex items-center gap-3 mb-6 sm:mb-8"
-            >
-              <div className="w-6 h-px shrink-0 bg-prism-accent" />
-              <span className="font-mono text-[9px] uppercase tracking-[0.35em] sm:tracking-[0.45em] text-prism-hot">
-                Brutalist shell · QC before dispatch
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="font-space font-black uppercase text-prism-fg text-[clamp(2rem,5.2vw+0.2rem,4.25rem)] leading-[1.05] max-w-full [text-wrap:balance]"
-            >
-              Loud<br className="sm:hidden" /> grid
-            </motion.h1>
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-              className="font-space font-black uppercase text-prism-accent text-[clamp(2rem,5.2vw+0.2rem,4.25rem)] leading-[1.05] mt-1 mb-8 sm:mb-10 max-w-full [text-wrap:balance]"
-            >
-              quiet proof.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55 }}
-              className="font-mono text-[11px] text-prism-fg/55 tracking-wide mb-8 max-w-md leading-relaxed"
-            >
-              Raw lines on luxury stock — Louis Vuitton, Prada, Goyard, Nike — inspected arrivals, straight pricing, courier nationwide.
-            </motion.p>
-
-            <div className="flex flex-wrap gap-3">
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62 }}>
-                <Link
-                  href="/prism/products"
-                  className="inline-flex items-center gap-2.5 bg-prism-accent text-[#0a0a0a] font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-prism-fg hover:text-prism-bg transition-colors duration-200"
-                >
-                  Browse pieces <ArrowRight size={13} />
-                </Link>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.72 }}>
-                <Link
-                  href="/prism/about"
-                  className="inline-flex items-center gap-2.5 border border-prism-fg/20 text-prism-fg font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:border-prism-fg hover:bg-prism-surface/80 transition-all duration-200"
-                >
-                  About
-                </Link>
-              </motion.div>
+        <div className="flex flex-col justify-between gap-12 p-6 sm:p-10 lg:p-14 border-b-4 lg:border-b-0 lg:border-r-4 border-prism-fg bg-prism-bg relative overflow-hidden">
+          <div className="prism-hero-mesh absolute inset-0 opacity-40 pointer-events-none" aria-hidden />
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-3 w-3 bg-prism-accent border-2 border-prism-fg shrink-0" />
+              <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-prism-fg">Build 04 · QC log</span>
+            </div>
+            <h1 className="font-space font-black uppercase text-[clamp(2.5rem,8vw,5.5rem)] leading-[0.92] tracking-tight">
+              Loud
+              <br />
+              <span className="text-prism-accent">grid</span>
+            </h1>
+            <p className="font-mono text-[11px] text-prism-fg/55 max-w-sm mt-8 leading-relaxed border-l-4 border-prism-fg pl-4">
+              No soft corners. Same stock as everywhere else — just sliced into a harder layout: proof over polish.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-10">
+              <Link
+                href="/prism/products"
+                className="inline-flex items-center gap-2 bg-prism-fg text-prism-bg font-mono text-[10px] uppercase tracking-[0.35em] px-6 py-3.5 border-2 border-prism-fg hover:bg-prism-accent hover:text-prism-fg transition-colors"
+              >
+                Catalog <ArrowRight size={14} />
+              </Link>
+              <Link
+                href="/prism/about"
+                className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.35em] px-6 py-3.5 border-2 border-prism-fg text-prism-fg hover:bg-prism-surface"
+              >
+                Readme
+              </Link>
             </div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.95 }}
-            className="mt-16 sm:mt-20 sm:absolute sm:bottom-12 sm:left-8 sm:mt-0 flex flex-wrap gap-8 sm:gap-10"
-          >
-            {[{ num: "16+", label: "SKUs" }, { num: "QC", label: "Every order" }, { num: "SA", label: "Shipping" }].map((s) => (
-              <div key={s.label}>
-                <p className="font-space font-black text-xl text-prism-hot">{s.num}</p>
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-prism-fg/40 mt-0.5">{s.label}</p>
+          <div className="relative z-10 grid grid-cols-3 gap-0 border-2 border-prism-fg divide-x-2 divide-prism-fg">
+            {[
+              ["16+", "SKUs"],
+              ["100%", "Auth check"],
+              ["SA", "Dispatch"],
+            ].map(([a, b]) => (
+              <div key={b} className="py-4 text-center bg-prism-bg">
+                <p className="font-space font-black text-lg text-prism-hot">{a}</p>
+                <p className="font-mono text-[7px] uppercase tracking-[0.25em] text-prism-fg/45 mt-1">{b}</p>
               </div>
             ))}
-          </motion.div>
+          </div>
+        </div>
+
+        <div className="relative min-h-[48vh] lg:min-h-full border-prism-fg bg-prism-fg">
+          <Image
+            src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=1600&q=80"
+            alt=""
+            fill
+            className="object-cover opacity-90 contrast-125"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-prism-accent/10 mix-blend-multiply pointer-events-none" aria-hidden />
+          <div className="absolute bottom-0 left-0 right-0 border-t-4 border-prism-fg bg-prism-bg p-4 flex justify-between items-end gap-4">
+            <p className="font-mono text-[9px] uppercase tracking-[0.35em] text-prism-fg max-w-[200px]">
+              Figure 01 — reference still. Not a moodboard.
+            </p>
+            <span className="font-space font-black text-4xl text-prism-accent leading-none">01</span>
+          </div>
         </div>
       </section>
 
-      {/* BRANDS STRIP */}
-      <section className="py-5 bg-prism-accent overflow-hidden border-y border-prism-fg/10">
-        <div className="flex gap-10 whitespace-nowrap" style={{ animation: "marquee 22s linear infinite", width: "max-content" }}>
-          {[...brands, ...brands, ...brands].map((b, i) => (
-            <span key={i} className="font-space font-black text-base uppercase tracking-tight text-prism-fg/80">
-              {b.name} <span className="text-prism-fg/25 mx-1">·</span>
-            </span>
+      {/* Brand index — cells, not marquee */}
+      <section className="border-b-4 border-prism-fg bg-prism-bg">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {brands.map((b) => (
+            <div key={b.name} className="font-mono text-[9px] uppercase tracking-[0.35em] py-4 px-3 text-center border-r-2 border-b-2 border-prism-fg last:border-r-0 lg:last:border-r-2 text-prism-fg/55 hover:text-prism-fg hover:bg-prism-surface transition-colors">
+              {b.name}
+            </div>
           ))}
         </div>
       </section>
 
-      {/* FEATURED BENTO */}
-      <section className="py-16 px-8 max-w-[1400px] mx-auto">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-space font-black text-[clamp(1.8rem,5vw,3.5rem)] uppercase leading-none">
-              New Drop
-            </motion.h2>
-            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }} style={{ originX: 0 }} className="h-1 bg-prism-accent w-14 mt-2" />
-          </div>
-          <Link href="/prism/products" className="hidden md:flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-prism-fg/50 hover:text-prism-fg transition-colors">
-            All Products <ArrowUpRight size={11} />
-          </Link>
-        </div>
-
-        {/* Hero + sidebar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div className="md:col-span-2">
-            <Link href={`/prism/products/${featuredProducts[0]?.slug}`} className="group block relative aspect-[16/10] overflow-hidden rounded-sm bg-gray-100">
-              <Image src={featuredProducts[0]?.image ?? ""} alt={featuredProducts[0]?.name ?? ""} fill className="object-cover transition-transform duration-600 group-hover:scale-105" sizes="66vw" priority />
-              {featuredProducts[0]?.badge && (
-                <div className={`absolute top-4 left-4 font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 rounded-sm ${badgeColors[featuredProducts[0].badge] ?? "bg-prism-accent text-prism-fg"}`}>
-                  {featuredProducts[0].badge}
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-prism-fg/90 to-transparent p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-prism-hot mb-1">{featuredProducts[0]?.brand}</p>
-                <div className="flex items-center justify-between">
-                  <p className="font-space font-black text-xl uppercase text-prism-bg">{featuredProducts[0]?.name}</p>
-                  <p className="font-space font-black text-xl text-prism-hot">{formatPrice(featuredProducts[0]?.price ?? 0)}</p>
-                </div>
-              </div>
+      {/* Alternating runway rows */}
+      <section className="bg-prism-bg">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-16">
+          <div className="flex items-end justify-between mb-10 border-b-4 border-prism-fg pb-4">
+            <h2 className="font-space font-black text-3xl sm:text-4xl uppercase tracking-tight">Runway</h2>
+            <Link href="/prism/products" className="font-mono text-[10px] uppercase tracking-[0.3em] flex items-center gap-1 text-prism-fg/50 hover:text-prism-fg">
+              Index <ArrowUpRight size={12} />
             </Link>
           </div>
-          <div className="flex flex-col gap-4">
-            {featuredProducts.slice(1, 3).map((product) => (
-              <Link key={product.id} href={`/prism/products/${product.slug}`} className="group relative flex-1 min-h-[180px] overflow-hidden rounded-sm bg-gray-100 block">
-                <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="22vw" />
-                {product.badge && (
-                  <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-prism-accent text-prism-fg"}`}>
-                    {product.badge}
-                  </div>
-                )}
-                <div className="absolute bottom-0 left-0 right-0 bg-prism-fg/75 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
-                  <p className="font-mono text-[8px] uppercase tracking-[0.25em] text-prism-hot">{product.brand}</p>
-                  <div className="flex justify-between mt-0.5">
-                    <p className="font-space font-bold text-xs uppercase text-prism-bg">{product.name}</p>
-                    <p className="font-space font-black text-xs text-prism-hot">{formatPrice(product.price)}</p>
-                  </div>
+          <div className="flex flex-col gap-0 border-2 border-prism-fg">
+            {featuredProducts.slice(0, 4).map((product, i) => (
+              <Link
+                key={product.id}
+                href={`/prism/products/${product.slug}`}
+                className={`grid md:grid-cols-2 gap-0 border-b-2 border-prism-fg last:border-b-0 group ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+              >
+                <div className={`relative min-h-[280px] md:min-h-[340px] border-prism-fg ${i % 2 === 0 ? "md:border-r-2" : "md:border-l-2"}`}>
+                  <Image src={product.image} alt={product.name} fill className="object-cover md:[direction:ltr] grayscale group-hover:grayscale-0 transition-all duration-700" sizes="50vw" />
+                  {product.badge && (
+                    <div className={`absolute top-4 left-4 font-mono text-[9px] uppercase tracking-[0.25em] px-2 py-1 border-2 border-prism-fg ${badgeColors[product.badge] ?? ""}`}>
+                      {product.badge}
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col justify-center p-8 md:p-12 bg-prism-bg md:[direction:ltr] border-prism-fg">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-prism-fg/45">0{i + 1}</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-prism-hot mt-4">{product.brand}</p>
+                  <h3 className="font-space font-black text-2xl sm:text-3xl uppercase mt-2 leading-tight">{product.name}</h3>
+                  <p className="font-space font-black text-xl mt-6">{formatPrice(product.price)}</p>
                 </div>
               </Link>
             ))}
           </div>
         </div>
-        {/* 4-col row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {featuredProducts.slice(3, 7).map((product) => (
-            <Link key={product.id} href={`/prism/products/${product.slug}`} className="group relative aspect-[3/4] overflow-hidden rounded-sm bg-gray-100 block">
-              <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="25vw" />
-              {product.badge && (
-                <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-prism-accent text-prism-fg"}`}>
-                  {product.badge}
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 bg-prism-fg/75 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
-                <p className="font-mono text-[8px] uppercase tracking-[0.25em] text-prism-hot">{product.brand}</p>
-                <div className="flex justify-between mt-0.5">
-                  <p className="font-space font-bold text-xs uppercase text-prism-bg truncate mr-2">{product.name}</p>
-                  <p className="font-space font-black text-xs text-prism-hot flex-shrink-0">{formatPrice(product.price)}</p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
       </section>
 
-      {/* FULL DROP */}
-      <section className="py-16 px-8 max-w-[1400px] mx-auto">
-        <div className="flex items-end justify-between mb-10">
-          <motion.h2 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="font-space font-black text-[clamp(1.8rem,5vw,3.5rem)] uppercase leading-none">
-            The Full Drop
-          </motion.h2>
-          <Link href="/prism/products" className="font-mono text-[10px] uppercase tracking-[0.3em] text-prism-fg/50 hover:text-prism-fg flex items-center gap-1.5 transition-colors">
-            View All <ArrowRight size={11} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {products.slice(0, 8).map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
-      </section>
-
-      {/* CTA BANNER */}
-      <section className="relative overflow-hidden mx-8 mb-16 rounded-sm">
-        <div className="relative h-[42vh] flex items-center">
-          <Image src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1800&q=80" alt="Nike Drop" fill className="object-cover" sizes="100vw" />
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 px-10 w-full">
-            <motion.h2
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="font-space font-black text-white uppercase leading-[1.05] mb-6 max-w-[95%] [text-wrap:balance] text-[clamp(1.65rem,4.5vw+0.2rem,3.25rem)]"
-            >
-              Fresh stock.
-              <br />
-              <span className="text-[#E5B80F]">Same standard.</span>
-            </motion.h2>
-            <Link href="/prism/products" className="inline-flex items-center gap-2.5 bg-[#E5B80F] text-[#0a0a0a] font-mono font-bold text-[11px] uppercase tracking-[0.3em] px-7 py-3.5 hover:bg-white transition-colors">
-              View products <ArrowRight size={13} />
-            </Link>
+      {/* Mosaic grid */}
+      <section className="py-16 px-4 sm:px-6 bg-prism-surface border-t-4 border-prism-fg">
+        <div className="max-w-[1600px] mx-auto">
+          <h2 className="font-space font-black text-3xl uppercase mb-2">Mosaic</h2>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-prism-fg/45 mb-8">Square tiles · 1:1 crops</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0.5 bg-prism-fg p-0.5">
+            {products.slice(0, 8).map((product, i) => (
+              <MosaicCell key={product.id} product={product} index={i} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* SOCIAL */}
-      <section className="py-12 px-8 bg-prism-surface border-t border-prism-fg/5">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-4">
-          {[
-            { icon: "📱", platform: "TikTok", desc: "Drops and close-ups" },
-            { icon: "📸", platform: "Instagram", desc: "Editorial and stock" },
-            { icon: "💬", platform: "WhatsApp", desc: "Orders and sizing" },
-          ].map((s) => (
-            <div
-              key={s.platform}
-              className="flex flex-col items-center py-8 px-4 text-center hover:bg-prism-accent group rounded-sm transition-colors duration-200 cursor-pointer"
-            >
-              <span className="text-2xl mb-3">{s.icon}</span>
-              <p className="font-space font-black uppercase text-base tracking-tight text-prism-fg group-hover:text-[#0a0a0a] transition-colors">{s.platform}</p>
-              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-prism-fg/45 group-hover:text-[#0a0a0a]/70 mt-1 transition-colors">{s.desc}</p>
+      {/* Ledger */}
+      <section className="py-16 px-4 sm:px-6 bg-prism-bg border-t-4 border-prism-fg">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="font-space font-black text-3xl uppercase">Ledger</h2>
+            <Link href="/prism/products" className="font-mono text-[10px] uppercase tracking-[0.3em] flex items-center gap-1">
+              Full file <ArrowRight size={12} />
+            </Link>
+          </div>
+          <div className="border-2 border-prism-fg bg-prism-bg">
+            <div className="hidden md:grid grid-cols-[88px_1fr_auto_auto] gap-6 px-3 py-2 border-b-2 border-prism-fg font-mono text-[9px] uppercase tracking-[0.3em] text-prism-fg/50">
+              <span>Thumb</span>
+              <span>Line item</span>
+              <span>Flag</span>
+              <span className="text-right pr-3">Action</span>
             </div>
-          ))}
+            {products.slice(0, 8).map((product, i) => (
+              <LedgerRow key={product.id} product={product} index={i} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <footer className="bg-prism-fg text-prism-bg py-10 px-8 border-t border-prism-accent/25">
+      {/* CTA slab */}
+      <section className="mx-4 sm:mx-6 mb-16 border-4 border-prism-fg bg-prism-fg text-prism-bg">
+        <div className="px-8 py-14 sm:px-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-[0.45em] text-prism-accent mb-2">Signal</p>
+            <h2 className="font-space font-black text-2xl sm:text-4xl uppercase leading-none max-w-lg">
+              Fresh units.
+              <br />
+              <span className="text-prism-accent">Same grid.</span>
+            </h2>
+          </div>
+          <Link
+            href="/prism/products"
+            className="inline-flex items-center justify-center gap-2 bg-prism-accent text-prism-fg font-mono text-[11px] uppercase tracking-[0.3em] px-8 py-4 border-2 border-prism-bg hover:bg-prism-bg hover:text-prism-accent transition-colors self-start"
+          >
+            Open stock <ArrowRight size={14} />
+          </Link>
+        </div>
+      </section>
+
+      <footer className="bg-prism-fg text-prism-bg py-10 px-8 border-t-4 border-prism-accent">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <p className="font-space font-black text-2xl uppercase tracking-tight">
-              FLEX<span className="bg-prism-accent text-[#0a0a0a] px-1.5 py-0.5 ml-0.5">HAUS</span>
+              PRISM<span className="bg-prism-accent text-prism-fg px-1.5 py-0.5 ml-1 text-lg">÷</span>
             </p>
-            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-prism-bg/40 mt-1">Designer resale · South Africa</p>
+            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-prism-bg/40 mt-1">FlexHaus line · South Africa</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             {["TikTok", "Instagram", "WhatsApp"].map((s) => (
-              <a
-                key={s}
-                href="#"
-                className="font-mono text-[9px] uppercase tracking-[0.3em] text-prism-bg/45 hover:text-prism-accent transition-colors border border-prism-bg/15 hover:border-prism-accent px-3 py-2"
-              >
+              <a key={s} href="#" className="font-mono text-[9px] uppercase tracking-[0.3em] border-2 border-prism-bg/30 px-3 py-2 hover:border-prism-accent hover:text-prism-accent transition-colors">
                 {s}
               </a>
             ))}
           </div>
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-prism-bg/25">© 2026 FlexHaus SA</p>
+          <p className="font-mono text-[9px] tracking-[0.2em] text-prism-bg/25">© 2026</p>
         </div>
       </footer>
     </>

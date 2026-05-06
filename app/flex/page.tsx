@@ -64,6 +64,43 @@ function ProductCard({ product, index }: { product: (typeof products)[0]; index:
   );
 }
 
+function TapeStrip({ product, flip }: { product: (typeof products)[0]; flip: boolean }) {
+  const { dispatch } = useCart();
+  return (
+    <div className={`grid md:grid-cols-2 gap-0 border-y border-flex-black/10 bg-flex-white ${flip ? "md:[direction:rtl]" : ""}`}>
+      <Link href={`/flex/products/${product.slug}`} className="relative min-h-[280px] md:min-h-[360px] block md:[direction:ltr] group overflow-hidden bg-flex-gray">
+        <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" sizes="50vw" />
+        <div className="absolute top-5 left-5 flex gap-2 md:[direction:ltr]">
+          {product.badge && (
+            <span className={`font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 rounded-sm ${badgeColors[product.badge] ?? ""}`}>{product.badge}</span>
+          )}
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] bg-flex-black/75 text-flex-yellow px-3 py-1.5 rounded-sm">Flex tape</span>
+        </div>
+      </Link>
+      <div className={`flex flex-col justify-center p-10 md:p-14 md:[direction:ltr] border-t md:border-t-0 md:border-l border-flex-black/10`}>
+        <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-flex-yellow">{product.brand}</p>
+        <h3 className="font-display font-black text-3xl md:text-4xl uppercase mt-4 leading-none">{product.name}</h3>
+        <p className="font-mono text-sm text-flex-black/55 mt-6 max-w-sm leading-relaxed">{product.description.slice(0, 120)}…</p>
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <span className="font-display font-black text-2xl text-flex-black">{formatPrice(product.price)}</span>
+          {product.inStock && (
+            <button
+              type="button"
+              onClick={() => dispatch({ type: "ADD", product })}
+              className="bg-flex-yellow-bright text-[#0a0a0a] font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-6 py-3 rounded-sm hover:bg-flex-black hover:text-flex-yellow transition-colors"
+            >
+              Add — quick
+            </button>
+          )}
+          <Link href={`/flex/products/${product.slug}`} className="font-mono text-[10px] uppercase tracking-[0.3em] text-flex-black/45 hover:text-flex-black flex items-center gap-1">
+            Open <ArrowUpRight size={12} />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FlexHomePage() {
   const [scanActive, setScanActive] = useState(true);
   useEffect(() => {
@@ -118,8 +155,8 @@ export default function FlexHomePage() {
           <div className="absolute inset-0 z-[3] bg-gradient-to-r from-flex-white/80 via-transparent to-flex-yellow-bright/[0.06]" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 py-20 sm:py-24">
-          <div className="w-full max-w-3xl">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 sm:px-8 py-20 sm:py-24 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+          <div className="w-full min-w-0">
             <motion.div
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
@@ -176,20 +213,52 @@ export default function FlexHomePage() {
                 </Link>
               </motion.div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.95 }}
+              className="mt-14 flex flex-wrap gap-8 sm:gap-10"
+            >
+              {[{ num: "16+", label: "SKUs" }, { num: "QC", label: "Every order" }, { num: "SA", label: "Shipping" }].map((s) => (
+                <div key={s.label}>
+                  <p className="font-display font-black text-xl text-flex-yellow">{s.num}</p>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-black/40 mt-0.5">{s.label}</p>
+                </div>
+              ))}
+            </motion.div>
           </div>
 
+          {/* Heat stack — layout unique to Flex */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.95 }}
-            className="mt-16 sm:mt-20 sm:absolute sm:bottom-12 sm:left-8 sm:mt-0 flex flex-wrap gap-8 sm:gap-10"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.45, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="relative hidden lg:block h-[min(520px,70vh)]"
           >
-            {[{ num: "16+", label: "SKUs" }, { num: "QC", label: "Every order" }, { num: "SA", label: "Shipping" }].map((s) => (
-              <div key={s.label}>
-                <p className="font-display font-black text-xl text-flex-yellow">{s.num}</p>
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-black/40 mt-0.5">{s.label}</p>
-              </div>
+            {featuredProducts.slice(0, 3).map((product, i) => (
+              <Link
+                key={product.id}
+                href={`/flex/products/${product.slug}`}
+                className="absolute w-[55%] aspect-[3/4] overflow-hidden rounded-sm border-4 border-flex-black shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:z-20 hover:scale-[1.02]"
+                style={{
+                  left: `${8 + i * 18}%`,
+                  top: `${i * 12}%`,
+                  zIndex: i + 1,
+                  transform: `rotate(${-6 + i * 5}deg)`,
+                }}
+              >
+                <Image src={product.image} alt={product.name} fill className="object-cover" sizes="40vw" />
+                {product.badge && (
+                  <div className={`absolute top-3 left-3 font-mono font-bold text-[8px] uppercase tracking-[0.2em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? ""}`}>
+                    {product.badge}
+                  </div>
+                )}
+              </Link>
             ))}
+            <p className="absolute bottom-0 right-0 font-mono text-[9px] uppercase tracking-[0.35em] text-flex-black/35 max-w-[140px] text-right leading-relaxed">
+              Stack view — three live heats. Tap any card.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -205,82 +274,29 @@ export default function FlexHomePage() {
         </div>
       </section>
 
-      {/* FEATURED BENTO */}
-      <section className="py-16 px-8 max-w-[1400px] mx-auto">
-        <div className="flex items-end justify-between mb-10">
+      {/* Full-bleed flex tapes — alternating rails */}
+      <section className="bg-flex-white">
+        <div className="max-w-[1400px] mx-auto px-8 pt-16 pb-6 flex items-end justify-between">
           <div>
             <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-display font-black text-[clamp(1.8rem,5vw,3.5rem)] uppercase leading-none">
-              New Drop
+              Rotation tapes
             </motion.h2>
-            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }} style={{ originX: 0 }} className="h-1 bg-flex-yellow-bright w-14 mt-2" />
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="font-mono text-[10px] uppercase tracking-[0.3em] text-flex-black/45 mt-2">
+              Full-width drops · hype pacing
+            </motion.p>
           </div>
           <Link href="/flex/products" className="hidden md:flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-flex-black/50 hover:text-flex-black transition-colors">
-            All Products <ArrowUpRight size={11} />
+            Rack view <ArrowUpRight size={11} />
           </Link>
         </div>
-
-        {/* Hero + sidebar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div className="md:col-span-2">
-            <Link href={`/flex/products/${featuredProducts[0]?.slug}`} className="group block relative aspect-[16/10] overflow-hidden rounded-sm bg-gray-100">
-              <Image src={featuredProducts[0]?.image ?? ""} alt={featuredProducts[0]?.name ?? ""} fill className="object-cover transition-transform duration-600 group-hover:scale-105" sizes="66vw" priority />
-              {featuredProducts[0]?.badge && (
-                <div className={`absolute top-4 left-4 font-mono font-bold text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 rounded-sm ${badgeColors[featuredProducts[0].badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
-                  {featuredProducts[0].badge}
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-flex-black/90 to-transparent p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
-                <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-flex-yellow mb-1">{featuredProducts[0]?.brand}</p>
-                <div className="flex items-center justify-between">
-                  <p className="font-display font-black text-xl uppercase text-flex-white">{featuredProducts[0]?.name}</p>
-                  <p className="font-display font-black text-xl text-flex-yellow">{formatPrice(featuredProducts[0]?.price ?? 0)}</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col gap-4">
-            {featuredProducts.slice(1, 3).map((product) => (
-              <Link key={product.id} href={`/flex/products/${product.slug}`} className="group relative flex-1 min-h-[180px] overflow-hidden rounded-sm bg-gray-100 block">
-                <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="22vw" />
-                {product.badge && (
-                  <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
-                    {product.badge}
-                  </div>
-                )}
-                <div className="absolute bottom-0 left-0 right-0 bg-flex-black/75 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
-                  <p className="font-mono text-[8px] uppercase tracking-[0.25em] text-flex-yellow">{product.brand}</p>
-                  <div className="flex justify-between mt-0.5">
-                    <p className="font-display font-bold text-xs uppercase text-flex-white">{product.name}</p>
-                    <p className="font-display font-black text-xs text-flex-yellow">{formatPrice(product.price)}</p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-        {/* 4-col row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {featuredProducts.slice(3, 7).map((product) => (
-            <Link key={product.id} href={`/flex/products/${product.slug}`} className="group relative aspect-[3/4] overflow-hidden rounded-sm bg-gray-100 block">
-              <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="25vw" />
-              {product.badge && (
-                <div className={`absolute top-3 left-3 font-mono font-bold text-[9px] uppercase tracking-[0.25em] px-2 py-1 rounded-sm ${badgeColors[product.badge] ?? "bg-flex-yellow-bright text-flex-black"}`}>
-                  {product.badge}
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 bg-flex-black/75 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
-                <p className="font-mono text-[8px] uppercase tracking-[0.25em] text-flex-yellow">{product.brand}</p>
-                <div className="flex justify-between mt-0.5">
-                  <p className="font-display font-bold text-xs uppercase text-flex-white truncate mr-2">{product.name}</p>
-                  <p className="font-display font-black text-xs text-flex-yellow flex-shrink-0">{formatPrice(product.price)}</p>
-                </div>
-              </div>
-            </Link>
+        <div className="flex flex-col">
+          {featuredProducts.slice(0, 4).map((product, i) => (
+            <TapeStrip key={product.id} product={product} flip={i % 2 === 1} />
           ))}
         </div>
       </section>
 
-      {/* FULL DROP */}
+      {/* FULL DROP — poster grid (2-up) */}
       <section className="py-16 px-8 max-w-[1400px] mx-auto">
         <div className="flex items-end justify-between mb-10">
           <motion.h2 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="font-display font-black text-[clamp(1.8rem,5vw,3.5rem)] uppercase leading-none">
@@ -290,8 +306,8 @@ export default function FlexHomePage() {
             View All <ArrowRight size={11} />
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {products.slice(0, 8).map((product, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+          {products.slice(0, 6).map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
