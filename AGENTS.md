@@ -29,3 +29,9 @@ FlexHaus is a frontend-only pnpm monorepo with three Next.js 14 (App Router) var
 - Cart state is React Context (client-side only, no persistence).
 - Product images are loaded from Unsplash CDN; network access is required for images to display.
 - No `.env` files or secrets are needed.
+
+### Troubleshooting (Windows)
+
+- **Always use `pnpm dev`** — do not run `next dev` from a global install (`npm i -g next`). That mixes the global Next runtime with `.next` output from this repo and causes errors like `Cannot find module 'next/dist/server/app-render/...'`.
+- If you see missing-module errors: stop the server, delete the `.next` folder, run `pnpm install`, then `pnpm dev` again.
+- Root scripts invoke `node ./node_modules/next/dist/bin/next` so the **local** Next 14 binary is used even if global `next` is on your PATH.

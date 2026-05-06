@@ -2,9 +2,9 @@
   "name": "flexhaus",
   "private": true,
   "scripts": {
-    "dev": "pnpm exec next dev -p 3000",
-    "build": "pnpm exec next build",
-    "start": "pnpm exec next start -p 3000",
+    "dev": "node ./node_modules/next/dist/bin/next dev -p 3000",
+    "build": "node ./node_modules/next/dist/bin/next build",
+    "start": "node ./node_modules/next/dist/bin/next start -p 3000",
     "dev:1": "pnpm --filter variant-1 dev",
     "dev:2": "pnpm --filter variant-2 dev",
     "dev:3": "pnpm --filter variant-3 dev",
