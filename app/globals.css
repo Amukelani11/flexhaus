@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* ================================================================
+   NOIR — DARK (default)
+   ================================================================ */
+.theme-noir.mode-dark {
+  --noir-black: #0A0A0A;
+  --noir-ivory: #F5EFE6;
+  --noir-gold: #C9A84C;
+  --noir-gold-light: #E8D5A0;
+  --noir-warm-gray: #2A2820;
+  --noir-muted: #8A8070;
+  --noir-nav-bg: 10, 10, 10;
+
+  background-color: var(--noir-black);
+  color: var(--noir-ivory);
+  cursor: none;
+}
+.theme-noir.mode-dark a,
+.theme-noir.mode-dark button,
+.theme-noir.mode-dark [role="button"] { cursor: none; }
+.theme-noir.mode-dark ::selection { background: var(--noir-gold); color: var(--noir-black); }
+
+/* ================================================================
+   NOIR — LIGHT
+   ================================================================ */
+.theme-noir.mode-light {
+  --noir-black: #FDFAF6;
+  --noir-ivory: #1A1510;
+  --noir-gold: #B8943A;
+  --noir-gold-light: #C9A84C;
+  --noir-warm-gray: #F0EBE4;
+  --noir-muted: #8A8070;
+  --noir-nav-bg: 253, 250, 246;
+
+  background-color: var(--noir-black);
+  color: var(--noir-ivory);
+}
+.theme-noir.mode-light ::selection { background: var(--noir-gold); color: var(--noir-black); }
+
+/* ================================================================
+   FLEX — LIGHT (default)
+   ================================================================ */
+.theme-flex.mode-light {
+  --flex-white: #FFFFFF;
+  --flex-black: #1A1A1A;
+  --flex-yellow: #FFD600;
+  --flex-yellow-dark: #E6C200;
+  --flex-gray: #F0F0F0;
+  --flex-mid-gray: #888888;
+  --flex-red: #FF2D00;
+  --flex-nav-bg: 255, 255, 255;
+  --flex-black-rgb: 26, 26, 26;
+
+  background-color: var(--flex-white);
+  color: var(--flex-black);
+}
+.theme-flex.mode-light ::selection { background: var(--flex-yellow); color: var(--flex-black); }
+
+/* ================================================================
+   FLEX — DARK
+   ================================================================ */
+.theme-flex.mode-dark {
+  --flex-white: #0F0F0F;
+  --flex-black: #F0F0F0;
+  --flex-yellow: #FFD600;
+  --flex-yellow-dark: #E6C200;
+  --flex-gray: #1A1A1A;
+  --flex-mid-gray: #888888;
+  --flex-red: #FF2D00;
+  --flex-nav-bg: 15, 15, 15;
+  --flex-black-rgb: 240, 240, 240;
+
+  background-color: var(--flex-white);
+  color: var(--flex-black);
+}
+.theme-flex.mode-dark ::selection { background: var(--flex-yellow); color: var(--flex-white); }
+
+/* ================================================================
+   ARCHIVE — LIGHT (default)
+   ================================================================ */
+.theme-archive.mode-light {
+  --archive-cream: #F8F4EF;
+  --archive-charcoal: #2C2820;
+  --archive-terracotta: #C1440E;
+  --archive-terracotta-light: #E8614A;
+  --archive-stone: #8C7B6B;
+  --archive-warm-white: #FDFAF6;
+  --archive-line: #DDD5C8;
+  --archive-nav-bg: 248, 244, 239;
+
+  background-color: var(--archive-cream);
+  color: var(--archive-charcoal);
+}
+.theme-archive.mode-light ::selection { background: var(--archive-terracotta); color: var(--archive-cream); }
+
+/* ================================================================
+   ARCHIVE — DARK
+   ================================================================ */
+.theme-archive.mode-dark {
+  --archive-cream: #1C1A16;
+  --archive-charcoal: #F0EBE4;
+  --archive-terracotta: #E06030;
+  --archive-terracotta-light: #E8614A;
+  --archive-stone: #A09080;
+  --archive-warm-white: #232019;
+  --archive-line: #3A3530;
+  --archive-nav-bg: 28, 26, 22;
+
+  background-color: var(--archive-cream);
+  color: var(--archive-charcoal);
+}
+.theme-archive.mode-dark ::selection { background: var(--archive-terracotta); color: var(--archive-cream); }
+
+/* ================================================================
+   FLEX — override standard Tailwind grays for dark mode
+   ================================================================ */
+.theme-flex.mode-dark .bg-white { background-color: var(--flex-white) !important; }
+.theme-flex.mode-dark .bg-gray-50 { background-color: #1A1A1A !important; }
+.theme-flex.mode-dark .bg-gray-100 { background-color: #222222 !important; }
+.theme-flex.mode-dark .bg-gray-200 { background-color: #333333 !important; }
+
+/* ================================================================
+   SHARED UTILITIES
+   ================================================================ */
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C 0%, #E8D5A0 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee_archive {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
