@@ -16,9 +16,11 @@ FlexHaus is a frontend-only pnpm monorepo with three Next.js 14 (App Router) var
 
 ### Running
 
-- `pnpm dev:1` / `pnpm dev:2` / `pnpm dev:3` — start individual dev servers
-- `pnpm build:all` — production build all variants
-- TypeScript check: `npx tsc --noEmit` inside any variant directory
+- `pnpm dev` — start the consolidated app on port 3000 (all variants at `/noir`, `/flex`, `/archive`)
+- `pnpm dev:1` / `pnpm dev:2` / `pnpm dev:3` — start individual variant dev servers (legacy, ports 3001-3003)
+- `pnpm build` — production build the consolidated app
+- `pnpm build:all` — production build legacy individual variants
+- TypeScript check: `npx tsc --noEmit` (from root for the consolidated app)
 
 ### Notes
 
