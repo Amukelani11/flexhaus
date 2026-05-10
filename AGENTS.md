@@ -4,37 +4,34 @@
 
 ### Project overview
 
-FlexHaus is a frontend-only pnpm monorepo with five **distinct** storefront experiences under the consolidated app (plus legacy variant folders). `/archive` **redirects** to `/flex` — Flex is the merged **Street × Archive** experience (editorial + hype). No backend, database, auth, or environment variables are required.
+FlexHaus is a frontend-only pnpm monorepo with a **single consolidated storefront** at `/` — the **Street × Archive** merged experience (fan-voted). Legacy paths (`/noir`, `/archive`, `/prism`, `/velvet`, `/steel`, and bookmarks under `/flex`) redirect to `/` with the same path suffix where applicable (e.g. `/noir/products` → `/products`).
+
+The repo also contains **legacy packages** `variant-1`, `variant-2`, `variant-3`, and `variant-combined` for historical splits; the main app on port 3000 is the root shop only.
 
 ### Services
 
-| Variant | Port | Theme |
-|---------|------|-------|
-| variant-1 | 3001 | NOIR (ultra-luxury editorial) |
-| variant-2 | 3002 | FLEX (streetwear/hype) |
-| variant-3 | 3003 | ARCHIVE (magazine/curation) |
-| (consolidated only) | 3000 | FLEX — Street × Archive (merged fan vote; canonical shop) |
-| (consolidated only) | 3000 | PRISM / VELVET / STEEL |
-| redirect | — | `/archive` → `/flex` (and `/archive/*` → `/flex/*`) |
+| Route | Description |
+|-------|-------------|
+| `/`, `/products`, `/about`, `/cart`, etc. | Canonical shop (theme-shop / theme-flex) |
+| `/flex`, `/flex/:path*` | Redirect → `/`, `/:path*` |
 
 ### Running
 
-- `pnpm dev` — start the consolidated app on port 3000 (storefronts at `/noir`, `/flex`, `/prism`, `/velvet`, `/steel`; `/archive` redirects to `/flex`)
-- `pnpm dev:1` / `pnpm dev:2` / `pnpm dev:3` — start individual variant dev servers (legacy, ports 3001-3003)
-- `pnpm build` — production build the consolidated app
-- `pnpm build:all` — production build legacy individual variants
-- TypeScript check: `npx tsc --noEmit` (from root for the consolidated app)
+- `pnpm dev` — consolidated app on port 3000
+- `pnpm build` — production build
+- `pnpm dev:1` / `pnpm dev:2` / `pnpm dev:3` — legacy variant packages only
+- `pnpm build:all` — build all workspace packages
+- TypeScript: `npx tsc --noEmit`
 
 ### Notes
 
-- No ESLint config exists; TypeScript (`tsc --noEmit`) is the sole static analysis tool.
-- All product data is hardcoded in each variant's `lib/products.ts` — no API calls or database.
-- Cart state is React Context (client-side only, no persistence).
-- Product images are loaded from Unsplash CDN; network access is required for images to display.
-- No `.env` files or secrets are needed.
+- No ESLint; use `tsc --noEmit` for static checks.
+- Product data: `lib/products.ts` (no API).
+- Cart: React Context (client-only).
+- Images: Unsplash (network required).
+- No `.env` required.
 
 ### Troubleshooting (Windows)
 
-- **Always use `pnpm dev`** — do not run `next dev` from a global install (`npm i -g next`). That mixes the global Next runtime with `.next` output from this repo and causes errors like `Cannot find module 'next/dist/server/app-render/...'`.
-- If you see missing-module errors: stop the server, delete the `.next` folder, run `pnpm install`, then `pnpm dev` again.
-- Root scripts invoke `node ./node_modules/next/dist/bin/next` so the **local** Next 14 binary is used even if global `next` is on your PATH.
+- Use **`pnpm dev`**, not a global `next` binary.
+- If module errors: delete `.next`, `pnpm install`, `pnpm dev` again.
